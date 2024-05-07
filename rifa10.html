@@ -49,11 +49,12 @@
             cursor: pointer;
             font-weight:bold;
             border-radius:15px;
-            color:black;
+            
         }
 
         li.selected {
             background-color: #ffcc00;
+            color:black;
         }
 
         button {
@@ -118,7 +119,7 @@
     </style>
 </head>
 <body>
-<h1>RIFA DEZENA <h>10:00h</h><br><git> R$</git> 5.00 GANHA <git>R$</git> 350.00</h1>
+<h1>RIFA DEZENA <h>10:00h</h><br><git> R$5.00</git>  GANHA <git>R$ 350.00</git> </h1>
 <h2> MULTIJOGO </h2>
 <div id="rifa">
     <ul id="dezenas"></ul>
@@ -180,6 +181,7 @@
 });
 
 // Função para enviar via WhatsApp
+// Função para enviar via WhatsApp
 function sendViaWhatsApp(pixKey, numeros, totalAPagar) {
     const nome = document.getElementById("nomeDig").value;
     
@@ -190,6 +192,9 @@ function sendViaWhatsApp(pixKey, numeros, totalAPagar) {
     const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
     const titi = "MULTIJOGO RIFA DAS 10:00 HORAS";
     const horaLimite =  "HORAR LIMITE 09:55";
+
+    // Gerar o código de 6 dígitos
+    const codigo = Math.floor(100000 + Math.random() * 900000);
    
     const mensagem = `${linktitulo}
     
@@ -206,11 +211,14 @@ Chave Pix ${chavePagamento}
               
           Total a pagar : *${totalAPagar}*
            
-*HORARIO LIMITE* : ${limite}`;
+*HORARIO LIMITE* : ${limite}
+
+Código de Confirmação: *${codigo}*`; // Adiciona o código de confirmação à mensagem
 
     const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsApp, '_blank');
 }
+
 
 
     // Fechar modal ao clicar em (x)

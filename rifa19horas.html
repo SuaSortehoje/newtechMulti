@@ -182,15 +182,19 @@ function sendViaWhatsApp(pixKey, numeros, totalAPagar) {
     
     const linktitulo ="https://multijogo-38.webnode.page/dezenas/";
     
-    const limite = "ESSE JOGO SO SERA VALIDO ATE AS:\n\n            *🚫( 18 : 55 HORAS )🚫.* \n\nAPOS ESSE HORARIOS SERA DESCANTADO NAO RECEBENDO NENHUM VALOR.\nO PAGAMENTO DEVER SER FEITO DENTO DO HORARIO LIMITE DA PULE.";
+    const limite = "ESSE JOGO SO SERA VALIDO ATE AS:\n\n            *🚫( 09 : 55 HORAS )🚫.* \n\nAPOS ESSE HORARIOS SERA DESCANTADO NAO RECEBENDO NENHUM VALOR.\nO PAGAMENTO DEVER SER FEITO DENTO DO HORARIO LIMITE DA PULE.";
     
     const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
-    const titi = "MULTIJOGO RIFA DAS 19:00 HORAS";
-    const horaLimite =  "HORAR LIMITE 18:55";
+    const titi = "MULTIJOGO RIFA DAS 10:00 HORAS";
+    const horaLimite =  "HORAR LIMITE 09:55";
+
+    // Gerar o código de 6 dígitos
+    const codigo = Math.floor(100000 + Math.random() * 900000);
    
     const mensagem = `${linktitulo}
-     *${titi}*
-     
+    
+    
+      *${titi}*
               DATA E HORA ATUAL
   *Data: ${new Date().toLocaleDateString()}           Hora: ${new Date().toLocaleTimeString()}*
                *${horaLimite}*
@@ -201,8 +205,10 @@ Chave Pix ${chavePagamento}
     Dezenas Selecionada : *( ${numeros} )*
               
           Total a pagar : *${totalAPagar}*
-          
-*HORARIO LIMITE* : ${limite}`;
+           
+*HORARIO LIMITE* : ${limite}
+
+Código de Confirmação: *${codigo}*`; // Adiciona o código de confirmação à mensagem
 
     const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsApp, '_blank');
