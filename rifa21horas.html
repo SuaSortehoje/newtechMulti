@@ -18,13 +18,18 @@
             text-align: center;
             color: green;
             font-size:22px;
+            font-weight:bold;}
             
+       h2{
+           display:flex;
+           flex-direction:row;
+           justify-content:center;
+           text-align:center;
+           margin:auto;
+         
             
         }
-        h2{ 
-           text-align:center;
-           margin:auto;      
-        } 
+         
 
         #rifa {
             margin: auto;
@@ -105,17 +110,16 @@
             color: black;
             text-decoration: none;
         }
-      
-        h {
+      h {
           color:red;
       }
-     git {
+        git {
             color:white;
-        }     
+        }
     </style>
 </head>
 <body>
-<h1>RIFA DEZENA <h>21:00h</h><br> <git> R$ 5.00 </git> GANHA<git>  R$ 350.00</git> </h1>
+<h1>RIFA DEZENA <h>21:00h</h><br><git> R$ 5.00</git>  GANHA <git>R$ 350.00</git> </h1>
 <h2> MULTIJOGO </h2>
 <div id="rifa">
     <ul id="dezenas"></ul>
@@ -134,86 +138,98 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const dezenasUl = document.getElementById('dezenas');
-    const comprarBtn = document.getElementById('comprarBtn');
+    document.addEventListener('DOMContentLoaded', function () {
+        const dezenasUl = document.getElementById('dezenas');
+        const comprarBtn = document.getElementById('comprarBtn');
+        const enviarWhatsappBtn = document.getElementById('enviarWhatsapp');
 
-    // Preenche a lista de dezenas de 00 a 99
-    for (let i = 0; i <= 99; i++) {
-        const li = document.createElement('li');
-        li.textContent = i < 10 ? '0' + i : i; // Adiciona um zero à esquerda se o número for menor que 10
-        li.addEventListener('click', () => toggleSelected(li));
-        dezenasUl.appendChild(li);
-    }
+        // Verifica se está dentro do horário permitido antes de permitir a compra
+        const agora = new Date();
+        const horaAtual = agora.getHours();
+        const minutoAtual = agora.getMinutes();
+        var horaLimite = 20; // Hora limite para comprar (9:50)
+        const minutoLimite = 55; // Minuto limite para comprar
 
-    // Função para selecionar/deselecionar uma dezena
-    function toggleSelected(li) {
-        li.classList.toggle('selected');
-    }
-
-    // Função para comprar a rifa
-    comprarBtn.addEventListener('click', () => {
-        const selecionadas = document.querySelectorAll('.selected');
-        if (selecionadas.length === 0) {
-            alert('Por favor, escolha pelo menos uma dezena da SORTE.');
+        if (horaAtual < horaLimite || (horaAtual === horaLimite && minutoAtual <= minutoLimite)) {
+            comprarBtn.disabled = false; // Habilita o botão se estiver dentro do horário permitido
+            enviarWhatsappBtn.disabled = false; // Desativa o botão enviar
         } else {
-            const numerosSelecionados = [];
-            selecionadas.forEach(li => {
-                numerosSelecionados.push(li.textContent);
-            });
-            const modal = document.getElementById('myModal');
-            modal.style.display = 'block';
-            const enviarWhatsappBtn = document.getElementById('enviarWhatsapp');
-            enviarWhatsappBtn.style.display = 'block';
-            const pixKey = document.getElementById('pixKey').innerText;
-            const numeros = numerosSelecionados.join(', ');
-
-            // Calcula o total a pagar
-            const totalAPagar = numerosSelecionados.length * 5; // Multiplica pelo valor de cada dezena (R$ 350)
-            const valorFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalAPagar);
-            enviarWhatsappBtn.setAttribute('onclick', `sendViaWhatsApp('${pixKey}', '${numeros}', '${valorFormatado}')`);
+            comprarBtn.disabled = true; // Desativa o botão se estiver fora do horário permitido
+            enviarWhatsappBtn.disabled = true; // Desativa o botão enviar
         }
+
+        // Preenche a lista de dezenas de 00 a 99
+        for (let i = 0; i <= 99; i++) {
+            const li = document.createElement('li');
+            li.textContent = i < 10 ? '0' + i : i; // Adiciona um zero à esquerda se o número for menor que 10
+            li.addEventListener('click', () => toggleSelected(li));
+            dezenasUl.appendChild(li);
+        }
+
+        // Função para selecionar/deselecionar uma dezena
+        function toggleSelected(li) {
+            li.classList.toggle('selected');
+        }
+
+        // Função para comprar a rifa
+        comprarBtn.addEventListener('click', () => {
+            const selecionadas = document.querySelectorAll('.selected');
+            if (selecionadas.length === 0) {
+                alert('Por favor, escolha pelo menos uma dezena da SORTE.');
+            } else {
+                const modal = document.getElementById('myModal');
+                modal.style.display = 'block';
+                const enviarWhatsappBtn = document.getElementById('enviarWhatsapp');
+                enviarWhatsappBtn.style.display = 'block';
+                const pixKey = document.getElementById('pixKey').innerText;
+                const numerosSelecionados = Array.from(selecionadas).map(li => li.textContent);
+                const numeros = numerosSelecionados.join(', ');
+
+                // Calcula o total a pagar
+                const totalAPagar = numerosSelecionados.length * 5; // Multiplica pelo valor de cada dezena (R$ 350)
+                const valorFormatado = new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(totalAPagar);
+                enviarWhatsappBtn.addEventListener('click', function () {
+                    sendViaWhatsApp(pixKey, numeros, valorFormatado);
+                });
+            }
+        });
     });
-});
 
-// Função para enviar via WhatsApp
-function sendViaWhatsApp(pixKey, numeros, totalAPagar) {
-    const nome = document.getElementById("nomeDig").value;
-    
-    const linktitulo ="https://multijogo-38.webnode.page/dezenas/";
-    
-    const limite = "ESSE JOGO SO SERA VALIDO ATE AS:\n\n            *🚫( 09 : 55 HORAS )🚫.* \n\nAPOS ESSE HORARIOS SERA DESCANTADO NAO RECEBENDO NENHUM VALOR.\nO PAGAMENTO DEVER SER FEITO DENTO DO HORARIO LIMITE DA PULE.";
-    
-    const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
-    const titi = "MULTIJOGO RIFA DAS 10:00 HORAS";
-    const horaLimite =  "HORAR LIMITE 09:55";
+    // Função para enviar via WhatsApp
+    function sendViaWhatsApp(pixKey, numeros, totalAPagar) {
+        const nome = document.getElementById("nomeDig").value;
 
-    // Gerar o código de 6 dígitos
-    const codigo = Math.floor(100000 + Math.random() * 900000);
-   
-    const mensagem = `${linktitulo}
-    
-    
+        const linktitulo = "https://multijogo-38.webnode.page/dezenas/";
+        const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
+        const titi = "MULTIJOGO RIFA DAS 21:00 HORAS";
+        const horaLimite = "HORAR LIMITE 20:55";
+        const limite = "ESSE JOGO SO SERA VALIDO ATE AS:\n\n            *🚫( 20 : 55 HORAS )🚫.* \n\nAPOS ESSE HORARIOS SERA DESCANTADO NAO RECEBENDO NENHUM VALOR.\nO PAGAMENTO DEVER SER FEITO DENTO DO HORARIO LIMITE DA PULE.";
+
+        // Gerar o código de 6 dígitos
+        const codigo = Math.floor(100000 + Math.random() * 900000);
+
+        const mensagem = `${linktitulo}
+
+
       *${titi}*
               DATA E HORA ATUAL
   *Data: ${new Date().toLocaleDateString()}           Hora: ${new Date().toLocaleTimeString()}*
                *${horaLimite}*
 *${nome}*
-    
+
 Chave Pix ${chavePagamento}
-    
+
     Dezenas Selecionada : *( ${numeros} )*
-              
+
           Total a pagar : *${totalAPagar}*
-           
+
 *HORARIO LIMITE* : ${limite}
 
 Código de Confirmação: *${codigo}*`; // Adiciona o código de confirmação à mensagem
 
-    const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
-    window.open(linkWhatsApp, '_blank');
-}
-
+        const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
+        window.open(linkWhatsApp, '_blank');
+    }
 
     // Fechar modal ao clicar em (x)
     function closeModal() {
@@ -221,25 +237,17 @@ Código de Confirmação: *${codigo}*`; // Adiciona o código de confirmação �
         modal.style.display = 'none';
     }
 
-    // Fechar modal ao clicar fora dele
-    window.onclick = function(event) {
-        const modal = document.getElementById('myModal');
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
-    }
     // Função para copiar a chave PIX
-function copyPixKey() {
-    const pixKey = document.getElementById('pixKey');
-    const textArea = document.createElement('textarea');
-    textArea.value = pixKey.innerText;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
-    alert('Chave PIX copiada para a área de transferência!');
-}
-
+    function copyPixKey() {
+        const pixKey = document.getElementById('pixKey');
+        const textArea = document.createElement('textarea');
+        textArea.value = pixKey.innerText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Chave PIX copiada para a área de transferência!');
+    }
 </script>
 </body>
 </html>
