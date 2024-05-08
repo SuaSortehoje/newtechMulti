@@ -116,6 +116,10 @@
             width:100%;
             height:150px;
         }
+        
+       #nomeDig{
+            border-radius:10px;
+        }   
     </style>
 </head>
 <img src="jogoBicho.jpeg" class="grupoimg">
@@ -211,14 +215,15 @@ function sendViaWhatsApp(pixKey, numeros, totalAPagar) {
     // Gerar o código de 6 dígitos
     const codigo = Math.floor(100000 + Math.random() * 900000);
    
+   const responsabilidade = "E de Responsabilidade do Apostador Conferir sua pule antes da Extracao";
+   
     const mensagem = `${linktitulo}
-    
-    
       *${titi}*
+      
               DATA E HORA ATUAL
   *Data: ${new Date().toLocaleDateString()}           Hora: ${new Date().toLocaleTimeString()}*
                *${horaLimite}*
-*${nome}*
+OLA : *${nome}*
     
 Chave Pix ${chavePagamento}
     
@@ -226,7 +231,9 @@ Chave Pix ${chavePagamento}
               
           Total a pagar : *${totalAPagar}*
            
-Nº Controle da Aposta : *${codigo}*`; // Adiciona o código de confirmação à mensagem
+Nº Controle da Aposta : *${codigo}*
+
+*${responsabilidade}*`; // Adiciona o código de confirmação à mensagem
 
     const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsApp, '_blank');
