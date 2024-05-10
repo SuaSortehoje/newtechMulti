@@ -259,7 +259,7 @@
 const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
     
     
-    const horaLimite =  "HORA LIMITE 09:55";
+    const horaLimite =  "HORA LIMITE 14:55";
 
     // Gerar o código de 6 dígitos
     const codigo = Math.floor(100000 + Math.random() * 900000);
@@ -294,7 +294,7 @@ const valorcentena = "CENTENA 700.00";
  
 *${responsabilidade}*
 
-Valor : ${valormilhar} *&* ${valorcentena}`;
+Valor : *${valormilhar}* & *${valorcentena}*`;
 
             const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsApp, '_blank');
