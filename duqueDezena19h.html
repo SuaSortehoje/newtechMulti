@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUQUE DE DEZENA</title>
+   <style>
+    
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        h1{
+            text-align: center;
+            color: green;
+            font-size:22px;  
+        }
+      h2{ display:flex;
+           flex-direction:row;
+           justify-content:center;
+           text-align:center;
+           margin:auto;      
+        }
+        .container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"]{
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 6px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type="number"]{
+            width: 30%;
+            padding: 10px;
+            margin-bottom: 6px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        select {
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 6px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type="tel"]{
+            width: 18%;
+            padding: 10px;
+            margin-bottom: 6px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #00d0ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #00aacc;
+        }
+        button:disabled {
+            background-color: red;
+            cursor: not-allowed;
+        }
+        #modal {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+        #modal-content {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h {
+          color:red;
+      }
+        
+        git {
+            color:white;
+        }  
+       #valorInput{
+            width: 28%;
+            padding: 10px;
+            margin-bottom: 6px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+           .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }  
+        
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1><h> RIFA </h> DUQUE DEZENA <h>19:00h</h><br><git> R$ 1.00 </git>GANHA<git> R$ 300.00</git></h1>
+<h2> MULTIJOGO </h2><br>
+    <input type="tel" id="valorInput" placeholder="Digite o valor"maxlength="2"><br>
+    <input type="text" id="nomeInput" placeholder="Digite seu nome">
+    <select id="premioInput">
+        <option value="1a5premio">1º ao 5º Prêmio</option>
+        <option value="6a10premio">6º ao 10º Prêmio</option>
+    </select>
+    <div>
+        <input type="tel" id="duqueInput1" placeholder="Digite o duque de dezena (2 números)" maxlength="2">
+        <input type="text" value="x" readonly style="width: 20px; text-align: center;">
+        <input type="tel" id="duqueInput2" placeholder="Digite o duque de dezena (2 números)" maxlength="2">
+        
+    </div>
+    <button onclick="adicionarDuqueDeDezena()">Adicionar Duque de Dezena</button>
+    <button id="botaoCalcular" onclick="calcular()">Calcular</button>
+</div>
+
+<div id="modal">
+    <div id="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h2>Detalhes do Jogo</h2>
+        <p>Nome: <span id="nomePix"></span></p>
+        <p>Horário: <span id="horarioPix"></span></p>
+        <p>Duques de Dezena: <span id="duquesDeDezenaPix"></span></p>
+        <p>Total a pagar: R$ <span id="totalPagar"></span></p>
+        <p>Total a Receber: R$ <span id="totalReceber"></span></p>
+        <p>Código PIX: <span id="codigoPix"></span></p>
+        <button onclick="copyPix()">Copiar PIX</button>
+        <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+    </div>
+</div>
+
+<script>
+    var duquesDeDezena = [];
+
+    function adicionarDuqueDeDezena() {
+        var duqueDeDezena1 = document.getElementById('duqueInput1').value;
+        var duqueDeDezena2 = document.getElementById('duqueInput2').value;
+
+        if (duqueDeDezena1.length === 2 && duqueDeDezena2.length === 2) {
+            var duqueDeDezena = '(' + duqueDeDezena1 + 'x' + duqueDeDezena2 + ')';
+            duquesDeDezena.push(duqueDeDezena);
+            alert('Duque de Dezena adicionado com sucesso!');
+               document.getElementById('duqueInput1').value = '';
+            document.getElementById('duqueInput2').value = '';
+       
+        } 
+        
+        else {
+            alert('Por favor, insira dois números de dois dígitos para formar o duque de dezena.');
+        }
+    }
+
+    function calcular() {
+            var valor = document.getElementById('valorInput').value;
+            var nome = document.getElementById('nomeInput').value;
+            var premio = document.getElementById('premioInput').value;
+
+            var agora = new Date();
+            var horaAtual = agora.getHours();
+            var minutosAtual = agora.getMinutes();
+
+            if (horaAtual > 18 || (horaAtual === 9 && minutosAtual > 50)) {
+                document.getElementById('botaoCalcular').disabled = true;
+                alert('O tempo limite para JOGAR foi excedido ATE 14:55.');
+                return;
+            }
+
+        if (nome && valor) {
+            valor = parseInt(valor);
+            if (!isNaN(valor)) {
+                var total;
+                if (premio === "1a5premio") {
+                    total = valor * 300;
+                } else if (premio === "6a10premio") {
+                    total = valor * 300;
+                } else {
+                    total = valor * 300;
+                }
+                var totalPagar = valor * duquesDeDezena.length;
+                var horario = horaAtual + ':' + (minutosAtual < 10 ? '0' + minutosAtual : minutosAtual);
+                showModal(nome, horario, totalPagar, total);
+            } else {
+                alert('Por favor, digite um valor válido.');
+            }
+        } else {
+            alert('Por favor, preencha pelo menos o nome e o valor.');
+        }
+    }
+
+    function showModal(nome, horario, totalPagar, totalReceber) {
+        var modal = document.getElementById('modal');
+        var nomePix = document.getElementById('nomePix');
+        var horarioPix = document.getElementById('horarioPix');
+        var duquesDeDezenaPix = document.getElementById('duquesDeDezenaPix');
+        var totalPagarElement = document.getElementById('totalPagar');
+        var totalReceberElement = document.getElementById('totalReceber');
+        var codigoPix = document.getElementById('codigoPix');
+
+        nomePix.textContent = nome;
+        horarioPix.textContent = horario;
+        duquesDeDezenaPix.textContent = duquesDeDezena.join(', ');
+
+        totalPagarElement.textContent = totalPagar.toFixed(2);
+        totalReceberElement.textContent = totalReceber.toFixed(2);
+
+        codigoPix.textContent = '71992290058';
+
+        modal.style.display = 'flex';
+    }
+
+    function fecharModal() {
+        document.getElementById('modal').style.display = 'none';}
+        
+function copyPix() {
+            var codigoPix = document.getElementById('codigoPix');
+            var range = document.createRange();
+            range.selectNode(codigoPix);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            alert('Código PIX copiado!');
+        }
+
+        function enviarWhatsApp() {
+    var nome = document.getElementById('nomeInput').value;
+    var valor = document.getElementById('valorInput').value;
+    var premio = document.getElementById('premioInput').value;
+    var duquesDeDezenaString = duquesDeDezena.join(', '); // Correção aqui
+    var totalPagar = document.getElementById('totalPagar').textContent;
+    var totalReceber = document.getElementById('totalReceber').textContent;
+    var codigoPix = document.getElementById('codigoPix').textContent;
+
+    var selecionado = document.getElementById('premioInput');
+    var premioText = selecionado.options[selecionado.selectedIndex].text;
+    var multijogo = "MULTIJOGO DUQUE DEZENA 19:00 HORAS";
+
+    const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
+    const horaLimite =  "HORA LIMITE 18:55";
+
+    // Gerar o código de 6 dígitos
+    const codigo = Math.floor(100000 + Math.random() * 900000);
+
+    const  titulo = "https://multijogo-38.webnode.page/milhar/";
+
+    const responsabilidade = "E de Responsabilidade do Apostador Conferir sua pule antes da Extracao";
+
+    const valorCentena = "CENTENA R$ 1.00 GANHA R$ 300.00";
+
+    var mensagem = `${titulo}
+*${multijogo}*
+        
+*Olá* , ${nome} !
+        
+           DATA E HORA ATUAL
+*Data: ${new Date().toLocaleDateString()}*       *Hora: ${new Date().toLocaleTimeString()}*
+            *${horaLimite }*
+         
+        *Segue o código PIX*: ${chavePagamento}
+     
+         *Valor a  Pagar* : R$ ${totalPagar}
+         
+         *Valor a Receber* : R$ ${totalReceber}
+       
+             *Prêmio* : ${premioText}
+     
+             *Duques de Dezena* : ${duquesDeDezenaString} 
+     
+             *Nº Controle da Aposta* : *${codigo}*
+
+ *${responsabilidade}*
+
+Valor : *${valorCentena}*`;
+
+    const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
+    window.open(linkWhatsApp, '_blank');
+}
+
+</script>
+</body>
+</html>

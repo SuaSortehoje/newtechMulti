@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
  <link rel="stylesheet" type="text/css" href="stylesheet.css" media="screen" />
 <link rel="icon" href="https://raw.githubusercontent.com/SuaSortehoje/RIFA-MULTIJOGO/main/multijogo.jpg"> 
-   <title>MULTIJOGOFACA </title>
+   <title>MULTIJOGO DUQUE-DEZENA</title>
     <style>
     body {
         background:black;
@@ -54,17 +54,14 @@
     }
     .imagem {
         width:100%;
-        height:110px;
+        height:280px;
         display:flex;
         flex-direction:row;
         justify-content:center;
         margin:5px auto;
     }
     #chamarduqueDezena{
-        font-size:12px;
-        padding-top:5px auto;
-        font-weight:bold;
-        
+        font-size:10px;
     }
     .btnmulti {
         width:30%;
@@ -96,8 +93,16 @@
                 align-item:center;
                 margin:5px;
             }
+            .contentDezena1{
+                width:100%;
+                height:120px;
+                background:gold;
+                border:1px solid red;
+                align-item:center;
+                margin:5px;
+            }
             .contentmulti {
-             display:block;
+             
                 width:100%;
                 height:60px;
                 border:1px solid red;
@@ -109,63 +114,41 @@
 <body>
 
 <img class="imagem"src="https://raw.githubusercontent.com/SuaSortehoje/RIFA-MULTIJOGO/main/multijogo.jpg">
-<h2>MULTIJOGO DEZENA </h2>
+
+<h2>MULTIJOGO DUQUE-DEZENA</h2>
 <div class="contentDezena">
-<a href="rifa10.html">
+<a href="duqueDezena10h.html">
 <button class="btn" id="chamar10 ()" onclick="chamar10 ()">10:00 HORAS</button></a>
-<a href="rifa12.html">
+<a href="duqueDezena12h.html">
 <button class="btn" id="chamar"onclick="chamar12 ()">12:00 HORAS</button></a>
-<a href="rifa15horas.html">
+<a href="duqueDezena15h.html">
 <button class="btn" id="chamar"onclick="chamar15 ()">15:00 HORAS</button></a>
-<a href="rifa19horas.html">
+<a href="duqueDezena19h.html">
 <button class="btn" id="chamar"onclick="chamar19 ()">19:00 HORAS</button></a>
-<a href="rifa21horas.html">
+<a href="duqueDezena21h.html">
 <button class="btn" id="chamar"onclick="chamar21 ()">21:00 HORAS</button></a>
-</div>
-<h2>MULTIJOGO GRUPO </h2>
-<div class="sal">
-<a href="grupo10H.html">
-<button class="btngrupo" id="chamar10 ()" onclick="chamar10 ()">10:00 HORAS</button></a>
-<a href="grupo12h.html">
-<button class="btngrupo" id="chamar"onclick="chamar12 ()">12:00 HORAS</button></a>
-<a href="grupo15h.html">
-<button class="btngrupo" id="chamar"onclick="chamar15 ()">15:00 HORAS</button></a>
-<a href="grupo19h.html">
-<button class="btngrupo" id="chamar"onclick="chamar19 ()">19:00 HORAS</button></a>
-<a href="grupo21h.html">
-<button class="btngrupo" id="chamar"onclick="chamar21 ()">21:00 HORAS</button></a>
-</div>
-<h2>MULTIJOGO </h2>
-<div class="contentmulti">
-<a href="chamarMilharAll.html">
-<button class="btnmulti" id="chamar"onclick="chamarbrever ()">MILHAR</button></a>
-<a href="chamarCentena.html">
-<button class="btnmulti" id="chamar"onclick="chamarbrever ()">CENTENA</button></a>
-<a href="duqueDezenaali.html">
-<button class="btnmulti" id="chamarduqueDezena"onclick="chamarbrever ()">DUQUE DEZENA</button></a>
 </div>
 <script>
 alert ("RESPEITE O HORARIO LIMITE DE CADA JOGO")
 function chamar10(){
-    alert ("HORÁRIO LIMITE PARA ESSE JOGO  E ate ( 09:55 ) ")
+    alert ("HORÁRIO LIMITE PARA ESSE JOGO  E ate ( 09:50 ) ")
 };
 function chamar12(){
-    alert ("HORÁRIO LIMITE PARA ESSE JOGO  E ate( 11:55 )")
+    alert ("HORÁRIO LIMITE PARA ESSE JOGO  E ate( 11:50 )")
 };
 function chamar15(){
-    alert ("HORÁRIO LIMITE PARA ESSE JOGO  E ate( 14:55 )")
+    alert ("HORÁRIO LIMITE PARA ESSE JOGO  E ate( 14:50)")
 };
 function chamar19(){
-    alert ("HORÁRIO LIMITE PARA ESSE JOGO  E ate( 18:55 )")
+    alert ("HORÁRIO LIMITE PARA ESSE JOGO  E ate( 18:50 )")
 };
 function chamar21(){
-    alert ("HORÁRIO LIMITE PARA ESSE JOGO  E ate( 20:55 )")
+    alert ("HORÁRIO LIMITE PARA ESSE JOGO  E ate( 20:50 )")
 };
-
-<!--function chamarbrever(){
-   alert ("Embreve Aguarde !!!!")
-}
--->
+<!--
+function chamarbrever(){
+    alert ("Embreve Aguarde !!!!")
+}-->
 </script>
 </body>
 </html>
