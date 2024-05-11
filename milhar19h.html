@@ -117,6 +117,19 @@
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }  
     </style>
 </head>
 <body>
@@ -152,12 +165,14 @@
         <input type="tel" id="milharInput20" placeholder="  milhar (4 números)" maxlength="4">
         <br>
         <button id="botaoAdicionar" onclick="adicionarMilhar()">Adicionar Milhar</button>
-        <button id="botaoCalcular" onclick="calcular()">Calcular</button>
+       <button id="botaoCalcular" onclick="calcular()" disabled>Calcular</button>
     </div>
 
     <div id="modal">
         <div id="modal-content">
             <h2>Detalhes do Jogo</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+
             <p>Nome: <span id="nomePix"></span></p>
             <p>Horário: <span id="horarioPix"></span></p>
             <p>Milhares: <span id="milharesPix"></span></p>
@@ -173,14 +188,17 @@
         var milhares = [];
 
         function adicionarMilhar() {
-            for (var i = 1; i <= 20; i++) {
-                var milharInput = document.getElementById('milharInput' + i);
-                if (milharInput.value.length === 4) {
-                    milhares.push(milharInput.value);
-                }
-            }
-            alert('Milhares adicionados com sucesso!');
+    for (var i = 1; i <= 20; i++) {
+        var milharInput = document.getElementById('milharInput' + i);
+        if (milharInput.value.length === 4) {
+            milhares.push(milharInput.value);
         }
+    }
+    if (milhares.length > 0) {
+        document.getElementById('botaoCalcular').disabled = false;
+    }
+    alert('Milhares adicionados com sucesso!');
+}
 
         function calcular() {
             var valor = document.getElementById('valorInput').value;
@@ -293,6 +311,10 @@ const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
 
             const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsApp, '_blank');
+}
+function closeModal() {
+    var modal = document.getElementById('modal');
+    modal.style.display = 'none';
 }
     </script>
 </body>
