@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOGIN de ACESSO</title>
+<style>
+body {
+    background: #5a2360; /* Alterei a cor de fundo para um tom de roxo mais escuro */
+    font-family: Arial, sans-serif; /* Alterei a fonte para Arial com fonte de fallback */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    outline:none;
+    text-align: center;
+}
+.container h1 {
+    margin-bottom: 20px;
+    color: #5a2360; /* Cor do texto alterada para combinar com o fundo */
+}
+input {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+    outline:none;
+    width: calc(100% - 22px);
+    
+}
+.btn {
+    background: #5a2360; /* Cor do botão alterada para combinar com o fundo */
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    outline:none;
+    transition: background 0.3s ease;
+}
+.btn:hover {
+    background: green; /* Cor de destaque do botão */
+}
+.links {
+    margin-top: 30px;
+}
+.links a {
+    text-decoration: none;
+    color: #5a2360; /* Cor dos links alterada para combinar com o fundo */
+    margin: 0 10px;
+    font-size: 14px;
+}
+.links a:hover {
+    color: #7d3b85; /* Cor de destaque dos links */
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>LOGIN de ACESSO</h1>
+    <form>
+        <input class="nome" type="text" name="NOME" placeholder="Usuário"><br>
+        <input class="nom" type="password" id="password" name="SENHA" placeholder="Senha" required><br>
+        <button class="btn" type="button" onclick="verificarLogin()">ACESSAR A CONTA</button>
+    </form>
+    <div class="links">
+        <a href="https://wa.me/5571992290058">ESQUECI A SENHA</a>
+        <a href="https://lojasc.github.io/Loja/cadastro.html">CRIAR LOGIN</a>
+    </div>
+</div>
+
+<script>
+var usuario = "carlos"
+var senha ="123"
+
+function verificarLogin() {
+    var usuario = document.querySelector('.nome').value;
+    var senha = document.querySelector('.nom').value;
+    
+    
+    // Verificação de login e senha (substitua por sua lógica de verificação)
+    if (usuario === 'carlos' && senha === '123') {
+        alert("Login bem-sucedido!");
+        window.location.href = "index.html"; // Redirecionar para index.html após o login bem-sucedido
+    } else {
+        alert("Usuário ou senha incorretos.");
+    }
+}
+</script>
+
+</body>
+</html>
