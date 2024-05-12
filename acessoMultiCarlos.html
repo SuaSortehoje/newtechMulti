@@ -35,7 +35,7 @@ input {
     padding: 10px;
     margin-bottom: 10px;
     outline:none;
-    width: calc(100% - 22px);
+    width: calc(70% - 22px);
     
 }
 .btn {
@@ -64,10 +64,21 @@ input {
 .links a:hover {
     color: #7d3b85; /* Cor de destaque dos links */
 }
+.saldo {
+    margin-left:70%;
+}
+.saldoCalor {
+    display:inline-block;
+    background:red;
+    color:white;
+    border-radius:5px;
+    width:30px;
+}
 </style>
 </head>
 <body>
 <div class="container">
+<span class="saldo" id=" ">saldo <p class="saldoCalor" id="valorMostar"></p>
     <h1>LOGIN de ACESSO</h1>
     <form>
         <input class="nome" type="text" name="NOME" placeholder="Usuário"><br>
@@ -81,8 +92,7 @@ input {
 </div>
 
 <script>
-var usuario = "carlos"
-var senha ="123"
+alert("alAdicione Saldo para Jogar")
 
 function verificarLogin() {
     var usuario = document.querySelector('.nome').value;
@@ -97,6 +107,10 @@ function verificarLogin() {
         alert("Usuário ou senha incorretos.");
     }
 }
+
+
+document.getElementById("valorMostar").innerHTML = " 0,00 ";
+
 </script>
 
 </body>
