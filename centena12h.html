@@ -148,8 +148,9 @@
         <input type="tel" id="valorInput" placeholder="Digite o valor" maxlength="2"><br>
         <input type="text" id="nomeInput" placeholder="Digite seu nome">
         <select id="premioInput">
-            <option value="premio">1º Prêmio</option>
+          <option value="premio">1º Prêmio</option>
             <option value="1a5premio">1º ao 5º Prêmio</option>
+                <option value="1a10premio">1º ao 10º Prêmio</option>
         </select>
         <br>
       <input type="tel" id="milharInput1" placeholder="  Centena" maxlength="3">
@@ -210,38 +211,40 @@
 
 
         function calcular() {
-            var valor = document.getElementById('valorInput').value;
-            var nome = document.getElementById('nomeInput').value;
-            var premio = document.getElementById('premioInput').value;
+    var valor = document.getElementById('valorInput').value;
+    var nome = document.getElementById('nomeInput').value;
+    var premio = document.getElementById('premioInput').value;
 
-            var agora = new Date();
-            var horaAtual = agora.getHours();
-            var minutosAtual = agora.getMinutes();
+    var agora = new Date();
+    var horaAtual = agora.getHours();
+    var minutosAtual = agora.getMinutes();
 
-            if (horaAtual > 11|| (horaAtual === 9 && minutosAtual > 50)) {
-                document.getElementById('botaoCalcular').disabled = true;
-                 alert('O tempo limite para JOGAR foi Excedido ATE 09:50.');
-                return;
-            }
+    if (horaAtual > 11 || (horaAtual === 11 && minutosAtual > 50)) {
+        document.getElementById('botaoCalcular').disabled = true;
+        alert('O tempo limite para JOGAR foi Excedido ATE 11:50.');
+        return;
+    }
 
-            if (nome && valor) {
-                valor = parseInt(valor);
-                if (!isNaN(valor)) {
-                    var total;
-                    if (premio === "1a5premio") {
-                        total = valor * 700 / 5;
-                    } else {
-                        total = valor * 700;
-                    }
-                    var totalPagar = valor * milhares.length;
-                    showModal(nome, totalPagar, total);
-                } else {
-                    alert('Por favor, digite um valor válido.');
-                }
+    if (nome && valor) {
+        valor = parseInt(valor);
+        if (!isNaN(valor)) {
+            var total;
+            if (premio === "1a5premio") {
+                total = valor * 700 / 5;
+            } else if (premio === "1a10premio") {
+                total = valor * 700 / 10;
             } else {
-                alert('Por favor, preencha pelo menos o nome e o valor.');
+                total = valor * 700;
             }
+            var totalPagar = valor * milhares.length;
+            showModal(nome, totalPagar, total);
+        } else {
+            alert('Por favor, digite um valor válido.');
         }
+    } else {
+        alert('Por favor, preencha pelo menos o nome e o valor.');
+    }
+}
 
         function showModal(nome, totalPagar, totalReceber) {
             var modal = document.getElementById('modal');
@@ -321,6 +324,11 @@ const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
             const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsApp, '_blank');
 }
+function closeModal() {
+    var modal = document.getElementById('modal');
+    modal.style.display = 'none';
+}
+
     </script>
 </body>
 </html>
