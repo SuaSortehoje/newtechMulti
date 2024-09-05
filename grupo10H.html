@@ -3,121 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo de Milhares 10 horas</title>
+    <title>Rifa de Grupos</title>
     <style>
-    
         body {
             font-family: Arial, sans-serif;
-            background-color: black;
-            color: white;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background: linear-gradient(45deg, black, black);
+            color: #eee;
         }
-        
+
         h1{
             text-align: center;
             color: green;
             font-size:22px;  
         }
-      h2{ display:flex;
-           flex-direction:row;
-           justify-content:center;
-           text-align:center;
-           margin:auto;      
+        h2 { 
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            text-align: center;
+            margin: auto;      
         }
-        .container {
-            background-color: #333;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        #rifa {
+            margin: auto;
+            text-align: center;
         }
-        input[type="text"]{
-            width: 50%;
-            padding: 10px;
-            margin-bottom: 6px;
-            border-radius: 5px;
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: inline-block;
+            margin: 3px;
+            padding: 4px;
             border: 1px solid #ccc;
-            box-sizing: border-box;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 15px;
         }
-        input[type="number"]{
-            width: 30%;
-            padding: 10px;
-            margin-bottom: 6px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
+
+        li.selected {
+            background-color: #ffcc00;
+            color: black;
         }
-        select {
-            width: 50%;
-            padding: 10px;
-            margin-bottom: 6px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-        input[type="tel"]{
-            width: 18%;
-            padding: 10px;
-            margin-bottom: 6px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
+
         button {
-            padding: 10px 20px;
+            padding: 10px 35px;
             background-color: #00d0ff;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
+            margin-left:5px;
         }
+        }
+
         button:hover {
-            background-color: #00aacc;
+            background-color: #0056b3;
         }
-        button:disabled {
-            background-color: #888;
-            cursor: not-allowed;
-        }
-        #modal {
+
+        /* Modal styles */
+        .modal {
             display: none;
-            background-color: rgba(0, 0, 0, 0.5);
             position: fixed;
-            top: 0;
+            z-index: 1;
             left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            justify-content: center;
-            align-items: center;
-        }
-        #modal-content {
-            background-color: black;
+            background-color: rgba(0, 0, 0, 0.5);
             color: white;
+        }
+
+        .modal-content {
+            background-color: black;
+            margin: 15% auto;
             padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        
-        h {
-          color:red;
-      }
-        
-        git {
-            color:white;
-        }  
-       #valorInput{
-            width: 28%;
-            padding: 10px;
-            margin-bottom: 6px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-          .close {
+
+        .close {
             color: #aaa;
             float: right;
             font-size: 28px;
@@ -130,188 +102,199 @@
             color: black;
             text-decoration: none;
         }
+
+        h {
+            color: red;
+        }
+
+        git {
+            color: white;
+        }  
+
+        .grupoimg {
+            width: 100%;
+            height: 150px;
+        }
+
+        #nomeDig {
+            border-radius: 10px;
+        }
+
+        .vDezenas {
+            width: 30%;
+            padding:5px;
+            border-radius: 10px;
+            text-align: center;
+            outline: none;
+            background:black;
+            color:white;
+        }
+        .sele{
+            padding:5px;
+            background:black;
+            color:white;
+            border-radius:5px;
+            outline: none;
+        }
+        .nomeModal {
+            border-radius:10px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-     <h1>RIFA MILHAR <h>10:00h</h><br><git> R$ 1.00 </git>GANHA<git> R$ 5.000.00</git></h1>
-<h2> MULTIJOGO </h2><br>
-        <input type="tel" id="valorInput" placeholder="Digite o valor" maxlength="2"><br>
-        <input type="text" id="nomeInput" placeholder="Digite seu nome">
-        <select id="premioInput">
-            <option value="premio">1º Prêmio</option>
-            <option value="1a5premio">1º ao 5º Prêmio</option>
-        </select>
-        <br>
-      <input type="tel" id="milharInput1" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput2" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput3" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput4" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput5" placeholder="  milhar (4 números)" maxlength="4">
-         <input type="tel" id="milharInput6" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput7" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput8" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput9" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput10" placeholder="  milhar (4 números)" maxlength="4">
-         <input type="tel" id="milharInput11" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput12" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput13" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput14" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput15" placeholder="  milhar (4 números)" maxlength="4">
-         <input type="tel" id="milharInput16" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput17" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput18" placeholder=" milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput19" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput20" placeholder="  milhar (4 números)" maxlength="4">
-        <br>
-        <button id="botaoAdicionar" onclick="adicionarMilhar()">Adicionar Milhar</button>
-         <button id="botaoCalcular" onclick="calcular()" disabled>Calcular</button>
+<img src="jogoBicho.jpeg" class="grupoimg">
+<h1>RIFA GRUPO <h>10:00h</h><br><git>R$ 5.00</git> GANHA <git>R$ 90.00</git></h1>
+<h2> MULTIJOGO </h2>
+
+<div id="rifa">
+    <ul id="grupos"></ul>
+    <input type="number" class="vDezenas" id="valorPorGrupo" placeholder="Valor por Grupo">
+
+    <select class="sele" id="premioSelect">
+        <option value="1">1º Prêmio</option>
+        <option value="5">1º ao 5º Prêmio</option>
+        <option value="10">1º ao 10º Prêmio</option>
+    </select>
+
+    <button id="comprarBtn">Comprar</button>
+</div>
+
+<!-- Modal para exibir informações do pagamento -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p>Valor a pagar: R$<span id="valorPagar"></span></p>
+        <p>Valor a receber: R$<span id="valorReceber"></span></p>
+        <p>Grupos Selecionados: <span id="gruposSelecionados"></span></p>
+        <p>Horário: <span id="horario"></span></p>
+        <input class="nomeModal"type="text" id="whatsappName" placeholder="Seu nome" required>
+     
+        <p>Chave PIX: <span id="pixKey">71992290058</span></p>
+        <button onclick="copyPixKey()">Copiar</button>
+        <button id="enviarWhatsapp">VALIDAR</button>
     </div>
+</div>
 
-    <div id="modal">
-        <div id="modal-content">
-            <h2>Detalhes do Jogo</h2>
-                <span class="close" onclick="closeModal()">&times;</span>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const gruposUl = document.getElementById('grupos');
+        const comprarBtn = document.getElementById('comprarBtn');
+        const enviarWhatsappBtn = document.getElementById('enviarWhatsapp');
+        const premioSelect = document.getElementById('premioSelect');
 
-            <p>Nome: <span id="nomePix"></span></p>
-            <p>Horário: <span id="horarioPix"></span></p>
-            <p>Milhares: <span id="milharesPix"></span></p>
-            <p>Total a Pagar: R$ <span id="totalPagar"></span></p>
-            <p>Total a Receber: R$ <span id="totalReceber"></span></p>
-            <p>Código PIX: <span id="codigoPix"></span></p>
-            <button onclick="copyPix()">Copiar PIX</button>
-            <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
-        </div>
-    </div>
-
-    <script>
-        var milhares = [];
-
-        function adicionarMilhar() {
-    for (var i = 1; i <= 20; i++) {
-        var milharInput = document.getElementById('milharInput' + i);
-        if (milharInput.value.length === 4) {
-            milhares.push(milharInput.value);
+        // Preencher a lista de grupos de 00 a 25
+        for (let i = 1; i <= 25; i++) {
+            const li = document.createElement('li');
+            li.textContent = i < 10 ? '0' + i : i;
+            li.addEventListener('click', () => toggleSelected(li));
+            gruposUl.appendChild(li);
         }
-    }
-    if (milhares.length > 0) {
-        document.getElementById('botaoCalcular').disabled = false;
-    }
-    alert('Milhares adicionados com sucesso!');}
-        function calcular() {
-            var valor = document.getElementById('valorInput').value;
-            var nome = document.getElementById('nomeInput').value;
-            var premio = document.getElementById('premioInput').value;
 
-            var agora = new Date();
-            var horaAtual = agora.getHours();
-            var minutosAtual = agora.getMinutes();
+        // Função para selecionar/deselecionar um grupo
+        function toggleSelected(li) {
+            li.classList.toggle('selected');
+        }
 
-            if (horaAtual > 9 || (horaAtual === 9 && minutosAtual > 50)) {
-                document.getElementById('botaoCalcular').disabled = true;
-                 alert('O tempo limite para JOGAR foi Excedido ATE 09:55.');
-                return;
-            }
+        // Verifica se está dentro do horário permitido antes de permitir a compra
+        const agora = new Date();
+        const horaAtual = agora.getHours();
+        const minutoAtual = agora.getMinutes();
+        const horaLimite = 10; // Hora limite para comprar (09:55)
+        const minutoLimite = 0; // Minuto limite para comprar
 
-            if (nome && valor) {
-                valor = parseInt(valor);
-                if (!isNaN(valor)) {
-                    var total;
-                    if (premio === "1a5premio") {
-                        total = valor * 5000 / 5;
-                    } else {
-                        total = valor * 5000;
-                    }
-                    var totalPagar = valor * milhares.length;
-                    showModal(nome, totalPagar, total);
-                } else {
-                    alert('Por favor, digite um valor válido.');
-                }
+        if (horaAtual < horaLimite || (horaAtual === horaLimite && minutoAtual <= minutoLimite)) {
+            comprarBtn.disabled = false; // Habilita o botão se estiver dentro do horário permitido
+            enviarWhatsappBtn.disabled = false; // Habilita o botão de enviar via WhatsApp
+        } else {
+            comprarBtn.disabled = true; // Desativa o botão se estiver fora do horário permitido
+            enviarWhatsappBtn.disabled = true; // Desativa o botão de enviar via WhatsApp
+        }
+
+        comprarBtn.addEventListener('click', () => {
+            const selecionados = document.querySelectorAll('.selected');
+            const valorPorGrupo = document.getElementById('valorPorGrupo').value;
+
+            if (selecionados.length === 0) {
+                alert('Por favor, escolha pelo menos um grupo da SORTE.');
+            } else if (!valorPorGrupo) {
+                alert('Por favor, insira o valor por grupo.');
             } else {
-                alert('Por favor, preencha pelo menos o nome e o valor.');
+                const valorPorGrupoFloat = parseFloat(valorPorGrupo);
+                const premio = parseFloat(premioSelect.value);
+                const totalGrupos = selecionados.length;
+                let totalAPagar = totalGrupos * valorPorGrupoFloat;
+                let valorAReceber = totalAPagar * 18; // Cada 1 real vale 18 no jogo
+
+                if (premio === 5) {
+                    valorAReceber /= 5; // Divide o valor a receber por 5 se a opção for "1º ao 5º Prêmio"
+                } else if (premio === 10) {
+                    valorAReceber /= 10;
+                } else {
+                    valorAReceber /= totalGrupos; // Divide o valor a receber pelo número total de grupos selecionados
+                }
+
+                const totalPagar = totalAPagar.toFixed(2);
+                valorAReceber = valorAReceber.toFixed(2);
+                const gruposArray = Array.from(selecionados).map(li => li.textContent);
+                const gruposSelecionados = gruposArray.join(', ');
+
+                const modal = document.getElementById('myModal');
+                document.getElementById('valorPagar').textContent = totalPagar;
+                document.getElementById('valorReceber').textContent = valorAReceber;
+                document.getElementById('gruposSelecionados').textContent = gruposSelecionados;
+
+                modal.style.display = 'block';
             }
-        }
+        });
 
-        function showModal(nome, totalPagar, totalReceber) {
-            var modal = document.getElementById('modal');
-            var nomePix = document.getElementById('nomePix');
-            var totalPagarElement = document.getElementById('totalPagar');
-            var totalReceberElement = document.getElementById('totalReceber');
-            var codigoPix = document.getElementById('codigoPix');
-
-            nomePix.textContent = nome;
-            totalPagarElement.textContent = totalPagar.toFixed(2);
-            totalReceberElement.textContent = totalReceber.toFixed(2);
-
-            codigoPix.textContent = '71992290058';
-
-            modal.style.display = 'flex';
-        }
-
-        function copyPix() {
-            var codigoPix = document.getElementById('codigoPix');
-            var range = document.createRange();
-            range.selectNode(codigoPix);
-            window.getSelection().removeAllRanges();
-            window.getSelection().addRange(range);
-            document.execCommand('copy');
-            window.getSelection().removeAllRanges();
-            alert('Código PIX copiado!');
-        }
-
-        function enviarWhatsApp() {
-            var nome = document.getElementById('nomeInput').value;
-            var valor = document.getElementById('valorInput').value;
-            var premio = document.getElementById('premioInput').value;
-            var milharesString = milhares.join(', ');
-            var totalPagar = document.getElementById('totalPagar').textContent;
-            var totalReceber = document.getElementById('totalReceber').textContent;
-            var codigoPix = document.getElementById('codigoPix').textContent;
-
-            var selecionado = document.getElementById('premioInput');
-            var premioText = selecionado.options[selecionado.selectedIndex].text;
-        var multijogo = "MULTIJOGO MILHAR DAS 10:00 HORAS";
-
-const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
-    
-  const  titulo = "https://multijogo-38.webnode.page/milhar/";
-    
-    const horaLimite =  "HORA LIMITE 09:55";
-
-    // Gerar o código de 6 dígitos
-    const codigo = Math.floor(100000 + Math.random() * 900000);
-    
-    
-   const responsabilidade = "E de Responsabilidade do Apostador Conferir sua pule antes da Extracao";
-
-            var mensagem = `${titulo}
-            *${multijogo}*
+        enviarWhatsappBtn.addEventListener('click', function () {
+            const nome = document.getElementById('whatsappName').value;
             
-       *Olá* , ${nome}!
-    
-               DATA E HORA ATUAL
-  *Data: ${new Date().toLocaleDateString()}*       *Hora: ${new Date().toLocaleTimeString()}*
-              *${horaLimite }*
-             
-            *Valor a  Pagar* : R$ ${totalPagar}
+            const titulo = "MULTIJOGO RIFA DE GRUPO";
+            const linkGrupo = "https://rifa-de-dezena-5.webnode.page/meu-trabalho/retratos-dos-sonhos/";
             
-            *Valor a Receber* : R$ ${totalReceber}
-        
-             *Prêmio* : ${premioText}
-         
-             *Milhares* : ${milharesString}
-         
-      *Nº Controle da Aposta* : *${codigo}*
- 
-*${responsabilidade}*`;
+            const totalReceber = document.getElementById('valorReceber').innerText;
+            const totalPagar = document.getElementById('valorPagar').innerText;
+            const premio = premioSelect.options[premioSelect.selectedIndex].text;
+            const gruposString = document.getElementById('gruposSelecionados').innerText;
 
-            const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
+            var responsabilidade = "*É de Responsabilidade do Apostador Conferir sua pule antes da Extração*\n\nBoa Sorte!!\n\n *Dezena Extra valor R$ 50.00*";
+            var codigo = Math.floor(100000 + Math.random() * 900000);
+            var chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
+
+            var mensagem = `${linkGrupo}
+            
+            *${titulo}*
+
+            *Olá, ${nome}!*
+            
+            *Valor a pagar : R$* ${totalPagar}
+            
+            *Valor a receber : R$* ${totalReceber}
+            
+            *Prêmio :* ${premio}
+            
+            *Grupos :* *${gruposString}*
+
+            Nº Controle da Aposta : *${codigo}*
+            
+            *${responsabilidade}*`;
+
+            var mensagemEncoded = encodeURIComponent(mensagem);
+            var linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsApp, '_blank');
-}
-function closeModal() {
-    var modal = document.getElementById('modal');
-    modal.style.display = 'none';
-}
-    </script>
+        });
+    });
+
+    function closeModal() {
+        document.getElementById('myModal').style.display = 'none';
+    }
+
+    function copyPixKey() {
+        const pixKey = document.getElementById('pixKey').textContent;
+        navigator.clipboard.writeText(pixKey);
+        alert('Chave PIX copiada!');
+    }
+</script>
 </body>
 </html>
