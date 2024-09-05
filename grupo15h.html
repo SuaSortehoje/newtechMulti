@@ -138,6 +138,10 @@
         }
         .nomeModal {
             border-radius:10px;
+            text-align:center;
+        }
+        placeholder{
+            font-weight:bold;
         }
     </style>
 </head>
@@ -148,7 +152,7 @@
 
 <div id="rifa">
     <ul id="grupos"></ul>
-    <input type="number" class="vDezenas" id="valorPorGrupo" placeholder="Valor por Grupo">
+    <input type="number" class="vDezenas" id="valorPorGrupo" placeholder="VALOR">
 
     <select class="sele" id="premioSelect">
         <option value="1">1º Prêmio</option>
@@ -163,10 +167,10 @@
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <p>Valor a pagar: R$<span id="valorPagar"></span></p>
-        <p>Valor a receber: R$<span id="valorReceber"></span></p>
-        <p>Grupos Selecionados: <span id="gruposSelecionados"></span></p>
-        <p>Horário: <span id="horario"></span></p>
+        <p>Valor a pagar : R$ <b><span id="valorPagar"></span></b></p>
+        <p>Valor a receber : R$ <b><span id="valorReceber"></span></b></p>
+        <p>Grupos Selecionados : <b> <span id="gruposSelecionados"></span><b></p>
+        <p>Horário : <span id="horario"></span></p>
         <input class="nomeModal"type="text" id="whatsappName" placeholder="Seu nome" required>
      
         <p>Chave PIX: <span id="pixKey">71992290058</span></p>
@@ -215,9 +219,9 @@
             const valorPorGrupo = document.getElementById('valorPorGrupo').value;
 
             if (selecionados.length === 0) {
-                alert('Por favor, escolha pelo menos um grupo da SORTE.');
+                alert('POR FAVOR, ESCOLHAR PELO MENOS UM GRUPO da SORTE.');
             } else if (!valorPorGrupo) {
-                alert('Por favor, insira o valor por grupo.');
+                alert('POR FAVOR, INSIRA VALOR.');
             } else {
                 const valorPorGrupoFloat = parseFloat(valorPorGrupo);
                 const premio = parseFloat(premioSelect.value);
@@ -251,23 +255,30 @@
             const nome = document.getElementById('whatsappName').value;
             
             const titulo = "MULTIJOGO RIFA DE GRUPO";
-            const linkGrupo = "https://rifa-de-dezena-5.webnode.page/meu-trabalho/retratos-dos-sonhos/";
+            const linkGrupo = "";
             
             const totalReceber = document.getElementById('valorReceber').innerText;
             const totalPagar = document.getElementById('valorPagar').innerText;
             const premio = premioSelect.options[premioSelect.selectedIndex].text;
             const gruposString = document.getElementById('gruposSelecionados').innerText;
 
-            var responsabilidade = "*É de Responsabilidade do Apostador Conferir sua pule antes da Extração*\n\nBoa Sorte!!\n\n *Dezena Extra valor R$ 50.00*";
+            var responsabilidade = "*É de Responsabilidade do Apostador Conferir sua pule antes da Extração*\n\n *Dezena Brinde valor R$ 30.00*";
             var codigo = Math.floor(100000 + Math.random() * 900000);
+            var codigodzn = Math.floor(10 + Math.random() * 99);
             var chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
 
-            var mensagem = `${linkGrupo}
+var sucessoMessagem = "*pule validada com Sucesso*\n\n                  *Boa Sorte!!*";
+const horaLimite =  "HORA LIMITE 14:55";
+            var mensagem = `         ${linkGrupo}
             
             *${titulo}*
 
             *Olá, ${nome}!*
             
+                DATA E HORA ATUAL
+  *Data: ${new Date().toLocaleDateString()}           Hora: ${new Date().toLocaleTimeString()}*
+                *${horaLimite}*
+               
             *Valor a pagar : R$* ${totalPagar}
             
             *Valor a receber : R$* ${totalReceber}
@@ -275,11 +286,14 @@
             *Prêmio :* ${premio}
             
             *Grupos :* *${gruposString}*
-
-            Nº Controle da Aposta : *${codigo}*
             
-            *${responsabilidade}*`;
-
+            ${responsabilidade};
+            
+           *Dezena Brinde* :  ${codigodzn}
+            
+  Nº Validacao da Aposta : *${codigo}*
+  
+            ${sucessoMessagem}`;
             var mensagemEncoded = encodeURIComponent(mensagem);
             var linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsApp, '_blank');
