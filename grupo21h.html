@@ -267,8 +267,8 @@
             var codigodzn = Math.floor(10 + Math.random() * 99);
             var chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
 
-var sucessoMessagem = "*pule validada com Sucesso\n\nBoa Sorte!!*"
-            var mensagem = `${linkGrupo}
+var sucessoMessagem = "*pule validada com Sucesso*\n\n*Boa Sorte!!*"
+            var mensagem = `         ${linkGrupo}
             
             *${titulo}*
 
@@ -282,13 +282,13 @@ var sucessoMessagem = "*pule validada com Sucesso\n\nBoa Sorte!!*"
             
             *Grupos :* *${gruposString}*
             
-            *${responsabilidade}*;
+            ${responsabilidade};
             
            *Dezena Brinde* :  ${codigodzn}
             
   Nº Validacao da Aposta : *${codigo}*
   
-${sucessoMessagem}`;
+            ${sucessoMessagem}`;
             var mensagemEncoded = encodeURIComponent(mensagem);
             var linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsApp, '_blank');
