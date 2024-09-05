@@ -1,12 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-<link  rel="shortcut.icon"  type="imagex/png" href="bahia.ico">
-<link rel="icon" href="bahia.png" type="image/png">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
- <link rel="stylesheet" type="text/css" href="stylesheet.css" media="screen" />
-<link rel="icon" href="https://raw.githubusercontent.com/SuaSortehoje/RIFA-MULTIJOGO/main/multijogo.jpg"> 
-    <title>Rifa de Dezenas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rifa de Grupos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,11 +16,12 @@
             color: green;
             font-size:22px;  
         }
-      h2{ display:flex;
-           flex-direction:row;
-           justify-content:center;
-           text-align:center;
-           margin:auto;      
+        h2 { 
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            text-align: center;
+            margin: auto;      
         }
 
         #rifa {
@@ -42,26 +40,25 @@
             padding: 4px;
             border: 1px solid #ccc;
             cursor: pointer;
-            font-weight:bold;
-            border-radius:15px;
-            
+            font-weight: bold;
+            border-radius: 15px;
         }
 
         li.selected {
             background-color: #ffcc00;
-            color:black;
+            color: black;
         }
 
         button {
-            display: block;
-            margin: 10px auto;
-            padding: 10px 20px;
-            border: none;
-            background-color: #007bff;
+            padding: 10px 35px;
+            background-color: #00d0ff;
             color: #fff;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            border-radius: 12px;
-            width: 40%;
+            margin-top: 10px;
+            margin-left:5px;
+        }
         }
 
         button:hover {
@@ -105,163 +102,199 @@
             color: black;
             text-decoration: none;
         }
-      h {
-          color:red;
-      }
-        
-        git {
-            color:white;
-        }  
-            .grupoimg {
-            width:100%;
-            height:150px;
+
+        h {
+            color: red;
         }
-    #nomeDig{
+
+        git {
+            color: white;
+        }  
+
+        .grupoimg {
+            width: 100%;
+            height: 150px;
+        }
+
+        #nomeDig {
+            border-radius: 10px;
+        }
+
+        .vDezenas {
+            width: 30%;
+            padding:5px;
+            border-radius: 10px;
+            text-align: center;
+            outline: none;
+            background:black;
+            color:white;
+        }
+        .sele{
+            padding:5px;
+            background:black;
+            color:white;
+            border-radius:5px;
+            outline: none;
+        }
+        .nomeModal {
             border-radius:10px;
-        }      
-     
+        }
     </style>
 </head>
 <body>
 <img src="jogoBicho.jpeg" class="grupoimg">
-<h1>MULTI GRUPO <h>19:00h</h><br><git> R$ 5.00 </git>GANHA<git> R$ 90.00</git></h1>
+<h1>RIFA GRUPO <h>15:00h</h><br><git>R$ 5.00</git> GANHA <git>R$ 90.00</git></h1>
 <h2> MULTIJOGO </h2>
+
 <div id="rifa">
-    <ul id="dezenas"></ul>
+    <ul id="grupos"></ul>
+    <input type="number" class="vDezenas" id="valorPorGrupo" placeholder="Valor por Grupo">
+
+    <select class="sele" id="premioSelect">
+        <option value="1">1º Prêmio</option>
+        <option value="5">1º ao 5º Prêmio</option>
+        <option value="10">1º ao 10º Prêmio</option>
+    </select>
+
     <button id="comprarBtn">Comprar</button>
 </div>
 
-<!-- Modal for Pix key -->
+<!-- Modal para exibir informações do pagamento -->
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <input type="text" id="nomeDig" placeholder="Seu nome" required>
+        <p>Valor a pagar: R$<span id="valorPagar"></span></p>
+        <p>Valor a receber: R$<span id="valorReceber"></span></p>
+        <p>Grupos Selecionados: <span id="gruposSelecionados"></span></p>
+        <p>Horário: <span id="horario"></span></p>
+        <input class="nomeModal"type="text" id="whatsappName" placeholder="Seu nome" required>
+     
         <p>Chave PIX: <span id="pixKey">71992290058</span></p>
         <button onclick="copyPixKey()">Copiar</button>
-        <button id="enviarWhatsapp" style="display: none;" onclick="sendViaWhatsApp()">VALIDAR</button>
+        <button id="enviarWhatsapp">VALIDAR</button>
     </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-            const dezenasUl = document.getElementById('dezenas');
-            const comprarBtn = document.getElementById('comprarBtn');
-            const enviarWhatsappBtn = document.getElementById('enviarWhatsapp');
+        const gruposUl = document.getElementById('grupos');
+        const comprarBtn = document.getElementById('comprarBtn');
+        const enviarWhatsappBtn = document.getElementById('enviarWhatsapp');
+        const premioSelect = document.getElementById('premioSelect');
 
-            // Verifica se está dentro do horário permitido antes de permitir a compra
-            const agora = new Date();
-            const horaAtual = agora.getHours();
-            const minutoAtual = agora.getMinutes();
-            var horaLimite = 18; // Hora limite para comprar (14:50)
-            const minutoLimite = 55; // Minuto limite para comprar
+        // Preencher a lista de grupos de 00 a 25
+        for (let i = 1; i <= 25; i++) {
+            const li = document.createElement('li');
+            li.textContent = i < 10 ? '0' + i : i;
+            li.addEventListener('click', () => toggleSelected(li));
+            gruposUl.appendChild(li);
+        }
 
-            if (horaAtual < horaLimite || (horaAtual === horaLimite && minutoAtual <= minutoLimite)) {
-                comprarBtn.disabled = false; // Habilita o botão se estiver dentro do horário permitido
-                enviarWhatsappBtn.disabled = false; // Desativa o botão enviar
-            } else {
-                comprarBtn.disabled = true; // Desativa o botão se estiver fora do horário permitido
-                enviarWhatsappBtn.disabled = true; // Desativa o botão enviar
-            }
-    // Preenche a lista de dezenas de 00 a 99
-    for (let i = 1; i <= 25; i++) {
-        const li = document.createElement('li');
-        li.textContent = i < 10 ? '0' + i : i; // Adiciona um zero à esquerda se o número for menor que 10
-        li.addEventListener('click', () => toggleSelected(li));
-        dezenasUl.appendChild(li);
-    }
+        // Função para selecionar/deselecionar um grupo
+        function toggleSelected(li) {
+            li.classList.toggle('selected');
+        }
 
-    // Função para selecionar/deselecionar uma dezena
-    function toggleSelected(li) {
-        li.classList.toggle('selected');
-    }
+        // Verifica se está dentro do horário permitido antes de permitir a compra
+        const agora = new Date();
+        const horaAtual = agora.getHours();
+        const minutoAtual = agora.getMinutes();
+        const horaLimite = 15; // Hora limite para comprar (14:55)
+        const minutoLimite = 0; // Minuto limite para comprar
 
-    // Função para comprar a rifa
-    comprarBtn.addEventListener('click', () => {
-        const selecionadas = document.querySelectorAll('.selected');
-        if (selecionadas.length === 0) {
-            alert('Por favor, escolha pelo menos uma dezena da SORTE.');
+        if (horaAtual < horaLimite || (horaAtual === horaLimite && minutoAtual <= minutoLimite)) {
+            comprarBtn.disabled = false; // Habilita o botão se estiver dentro do horário permitido
+            enviarWhatsappBtn.disabled = false; // Habilita o botão de enviar via WhatsApp
         } else {
-            const numerosSelecionados = [];
-            selecionadas.forEach(li => {
-                numerosSelecionados.push(li.textContent);
-            });
-            const modal = document.getElementById('myModal');
-            modal.style.display = 'block';
-            const enviarWhatsappBtn = document.getElementById('enviarWhatsapp');
-            enviarWhatsappBtn.style.display = 'block';
-            const pixKey = document.getElementById('pixKey').innerText;
-            const numeros = numerosSelecionados.join(', ');
-
-            // Calcula o total a pagar
-            const totalAPagar = numerosSelecionados.length * 5; // Multiplica pelo valor de cada dezena (R$ 350)
-            const valorFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalAPagar);
-            enviarWhatsappBtn.setAttribute('onclick', `sendViaWhatsApp('${pixKey}', '${numeros}', '${valorFormatado}')`);
+            comprarBtn.disabled = true; // Desativa o botão se estiver fora do horário permitido
+            enviarWhatsappBtn.disabled = true; // Desativa o botão de enviar via WhatsApp
         }
-    });
-});
 
-// Função para enviar via WhatsApp
-function sendViaWhatsApp(pixKey, numeros, totalAPagar) {
-    const nome = document.getElementById("nomeDig").value;
-    
-    let linktitulo ="https://multijogo-38.webnode.page/grupo/";
-    
-    
- const titi = "MULTIJOGO GRUPO DAS 19:00 HORAS";
-    const horaLimite =  "HORAR LIMITE 18:55";
+        comprarBtn.addEventListener('click', () => {
+            const selecionados = document.querySelectorAll('.selected');
+            const valorPorGrupo = document.getElementById('valorPorGrupo').value;
 
-    // Gerar o código de 6 dígitos
-    const codigo = Math.floor(100000 + Math.random() * 900000);
-   
-   const responsabilidade = "E de Responsabilidade do Apostador Conferir sua pule antes da Extracao";
-   
-    const mensagem = `${linktitulo}
-      *${titi}*
-      
-              DATA E HORA ATUAL
-  *Data: ${new Date().toLocaleDateString()}           Hora: ${new Date().toLocaleTimeString()}*
-               *${horaLimite}*
-*${nome}*
- 
- Dezenas Selecionada : *( ${numeros} )*
-              
-          Total a pagar : *${totalAPagar}*
-          
-Nº Controle da Aposta : *${codigo}*
+            if (selecionados.length === 0) {
+                alert('Por favor, escolha pelo menos um grupo da SORTE.');
+            } else if (!valorPorGrupo) {
+                alert('Por favor, insira o valor por grupo.');
+            } else {
+                const valorPorGrupoFloat = parseFloat(valorPorGrupo);
+                const premio = parseFloat(premioSelect.value);
+                const totalGrupos = selecionados.length;
+                let totalAPagar = totalGrupos * valorPorGrupoFloat;
+                let valorAReceber = totalAPagar * 18; // Cada 1 real vale 18 no jogo
 
-*${responsabilidade}*`; // Adiciona o código de confirmação à mensagem
+                if (premio === 5) {
+                    valorAReceber /= 5; // Divide o valor a receber por 5 se a opção for "1º ao 5º Prêmio"
+                } else if (premio === 10) {
+                    valorAReceber /= 10;
+                } else {
+                    valorAReceber /= totalGrupos; // Divide o valor a receber pelo número total de grupos selecionados
+                }
 
-    const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
+                const totalPagar = totalAPagar.toFixed(2);
+                valorAReceber = valorAReceber.toFixed(2);
+                const gruposArray = Array.from(selecionados).map(li => li.textContent);
+                const gruposSelecionados = gruposArray.join(', ');
+
+                const modal = document.getElementById('myModal');
+                document.getElementById('valorPagar').textContent = totalPagar;
+                document.getElementById('valorReceber').textContent = valorAReceber;
+                document.getElementById('gruposSelecionados').textContent = gruposSelecionados;
+
+                modal.style.display = 'block';
+            }
+        });
+
+        enviarWhatsappBtn.addEventListener('click', function () {
+            const nome = document.getElementById('whatsappName').value;
+            
+            const titulo = "MULTIJOGO RIFA DE GRUPO";
+            const linkGrupo = "https://rifa-de-dezena-5.webnode.page/meu-trabalho/retratos-dos-sonhos/";
+            
+            const totalReceber = document.getElementById('valorReceber').innerText;
+            const totalPagar = document.getElementById('valorPagar').innerText;
+            const premio = premioSelect.options[premioSelect.selectedIndex].text;
+            const gruposString = document.getElementById('gruposSelecionados').innerText;
+
+            var responsabilidade = "*É de Responsabilidade do Apostador Conferir sua pule antes da Extração*\n\nBoa Sorte!!\n\n *Dezena Extra valor R$ 50.00*";
+            var codigo = Math.floor(100000 + Math.random() * 900000);
+            var chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
+
+            var mensagem = `${linkGrupo}
+            
+            *${titulo}*
+
+            *Olá, ${nome}!*
+            
+            *Valor a pagar : R$* ${totalPagar}
+            
+            *Valor a receber : R$* ${totalReceber}
+            
+            *Prêmio :* ${premio}
+            
+            *Grupos :* *${gruposString}*
+
+            Nº Controle da Aposta : *${codigo}*
+            
+            *${responsabilidade}*`;
+
+            var mensagemEncoded = encodeURIComponent(mensagem);
+            var linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsApp, '_blank');
-}
+        });
+    });
 
-
-
-    // Fechar modal ao clicar em (x)
     function closeModal() {
-        const modal = document.getElementById('myModal');
-        modal.style.display = 'none';
+        document.getElementById('myModal').style.display = 'none';
     }
 
-    // Fechar modal ao clicar fora dele
-    window.onclick = function(event) {
-        const modal = document.getElementById('myModal');
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
+    function copyPixKey() {
+        const pixKey = document.getElementById('pixKey').textContent;
+        navigator.clipboard.writeText(pixKey);
+        alert('Chave PIX copiada!');
     }
-    // Função para copiar a chave PIX
-function copyPixKey() {
-    const pixKey = document.getElementById('pixKey');
-    const textArea = document.createElement('textarea');
-    textArea.value = pixKey.innerText;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
-    alert('Chave PIX copiada para a área de transferência!');
-}
-
 </script>
 </body>
 </html>
