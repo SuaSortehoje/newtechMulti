@@ -167,10 +167,10 @@
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <p>Valor a pagar: R$<span id="valorPagar"></span></p>
-        <p>Valor a receber: R$<span id="valorReceber"></span></p>
-        <p>Grupos Selecionados: <span id="gruposSelecionados"></span></p>
-        <p>Horário: <span id="horario"></span></p>
+        <p>Valor a pagar : R$ <b><span id="valorPagar"></span></b></p>
+        <p>Valor a receber : R$ <b><span id="valorReceber"></span></b></p>
+        <p>Grupos Selecionados : <b> <span id="gruposSelecionados"></span><b></p>
+        <p>Horário : <span id="horario"></span></p>
         <input class="nomeModal"type="text" id="whatsappName" placeholder="Seu nome" required>
      
         <p>Chave PIX: <span id="pixKey">71992290058</span></p>
@@ -267,13 +267,18 @@
             var codigodzn = Math.floor(10 + Math.random() * 99);
             var chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
 
-var sucessoMessagem = "*pule validada com Sucesso*\n\n*Boa Sorte!!*"
+var sucessoMessagem = "*pule validada com Sucesso*\n\n*Boa Sorte!!*";
+const horaLimite =  "HORA LIMITE 20:55";
             var mensagem = `         ${linkGrupo}
             
             *${titulo}*
 
             *Olá, ${nome}!*
             
+            DATA E HORA ATUAL
+  *Data: ${new Date().toLocaleDateString()}           Hora: ${new Date().toLocaleTimeString()}*
+               *${horaLimite}*
+               
             *Valor a pagar : R$* ${totalPagar}
             
             *Valor a receber : R$* ${totalReceber}
