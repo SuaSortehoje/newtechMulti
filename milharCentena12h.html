@@ -36,8 +36,9 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         input[type="text"]{
-            width: 50%;
+            width: 40%;
             padding: 10px;
+              font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -46,6 +47,7 @@
         input[type="number"]{
             width: 30%;
             padding: 10px;
+              font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -54,6 +56,7 @@
         select {
             width: 50%;
             padding: 10px;
+              font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -62,6 +65,7 @@
         input[type="tel"]{
             width: 18%;
             padding: 10px;
+            font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -135,13 +139,14 @@
 </head>
 <body>
     <div class="container">
-     <h1><h>RIFA</h> MILHAR e CENTENA <h>12:00h</h><br><git> R$ 1.00 </git>GANHA<git> R$ 4.000.00</git></h1>
+     <h1><h>RIFA</h> MILHAR e CENTENA <h>12:00h</h><br><git> R$ 1.00 </git>GANHA<git> R$ 5.000.00</git></h1>
 <h2> MULTIJOGO </h2><br>
         <input type="tel" id="valorInput" placeholder="Digite o valor" maxlength="4"><br>
         <input type="text" id="nomeInput" placeholder="Digite seu nome">
         <select id="premioInput">
             <option value="premio">1º Prêmio</option>
             <option value="1a5premio">1º ao 5º Prêmio</option>
+               <option value="1a10premio">1º ao 10º Prêmio</option>
         </select>
         <br>
       <input type="tel" id="milharInput1" placeholder="  milhar (4 números)" maxlength="4">
@@ -288,7 +293,7 @@ const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
     
    const responsabilidade = "E de Responsabilidade do Apostador Conferir sua pule antes da Extracao";
    
-const valormilhar = "MILHAR 4.000.00";
+const valormilhar = "MILHAR 5.000.00";
 const valorcentena = "CENTENA 700.00";
 
             var mensagem = `${titulo}
