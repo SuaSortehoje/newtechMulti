@@ -36,8 +36,9 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         input[type="text"]{
-            width: 50%;
+            width: 40%;
             padding: 10px;
+             font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -46,6 +47,7 @@
         input[type="number"]{
             width: 30%;
             padding: 10px;
+             font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -54,6 +56,7 @@
         select {
             width: 50%;
             padding: 10px;
+             font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -62,6 +65,7 @@
         input[type="tel"]{
             width: 18%;
             padding: 10px;
+            font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -134,7 +138,7 @@
 </head>
 <body>
     <div class="container">
-     <h1><h>RIFA</h> MILHAR e CENTENA <h>15:00h</h><br><git> R$ 1.00 </git>GANHA<git> R$ 4.000.00</git></h1>
+     <h1><h>RIFA</h> MILHAR e CENTENA <h>15:00h</h><br><git> R$ 1.00 </git>GANHA<git> R$ 2.850.00</git></h1>
 <h2> MULTIJOGO </h2><br>
         <input type="tel" id="valorInput" placeholder="Digite o valor" maxlength="4"><br>
         <input type="text" id="nomeInput" placeholder="Digite seu nome">
@@ -168,19 +172,20 @@
        <button id="botaoCalcular" onclick="calcular()" disabled>Calcular</button>
     </div>
 
-    <div id="modal">
-        <div id="modal-content">
-            <h2>Detalhes do Jogo</h2>
-               <span class="close" onclick="closeModal()">&times;</span>
-
-            <p>Nome: <span id="nomePix"></span></p>
-            <p>Horário: <span id="horarioPix"></span></p>
-            <p>Milhares: <span id="milharesPix"></span></p>
-            <p>Total a Pagar: R$ <span id="totalPagar"></span></p>
-            <p>Total a Receber: R$ <span id="totalReceber"></span></p>
-            <p>Código PIX: <span id="codigoPix"></span></p>
-            <button onclick="copyPix()">Copiar PIX</button>
-            <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+     <div id="modal">
+      <div id="modal-content">
+    <h2>Detalhes do Jogo</h2>
+    <span class="close" onclick="closeModal()">&times;</span>
+    
+    <p>Nome: <span id="nomePix"></span></p>
+ 
+    <p>Milhares: <span id="milharesPix"></span></p>
+    <p>Prêmio Selecionado: <span id="premioPix"></span></p>
+    <p>Total a Pagar: R$ <span id="totalPagar"></span></p>
+    <p>Total a Receber: R$ <span id="totalReceber"></span></p>
+    <p>Código PIX: <span id="codigoPix"></span></p>
+    <button onclick="copyPix()">Copiar PIX</button>
+    <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
         </div>
     </div>
 
@@ -216,14 +221,16 @@
                 return;
             }
 
-            if (nome && valor) {
+         if (nome && valor) {
                 valor = parseInt(valor);
                 if (!isNaN(valor)) {
                     var total;
-                    if (premio === "1a5premio") {
-                        total = valor * 2350 / 5;
-                    } else {
-                        total = valor * 2350;
+                        if (premio === "1a5premio") {
+                        total = valor * 2850 / 5;
+                    } else if  (premio === "1a10premio") {
+                        total = valor * 2850 / 10;
+                    }else {
+                        total = valor * 2850;
                     }
                     var totalPagar = valor * milhares.length;
                     showModal(nome, totalPagar, total);
@@ -235,21 +242,27 @@
             }
         }
 
-        function showModal(nome, totalPagar, totalReceber) {
-            var modal = document.getElementById('modal');
-            var nomePix = document.getElementById('nomePix');
-            var totalPagarElement = document.getElementById('totalPagar');
-            var totalReceberElement = document.getElementById('totalReceber');
-            var codigoPix = document.getElementById('codigoPix');
+           function showModal(nome, totalPagar, totalReceber) {
+    var modal = document.getElementById('modal');
+    var nomePix = document.getElementById('nomePix');
+    var totalPagarElement = document.getElementById('totalPagar');
+    var totalReceberElement = document.getElementById('totalReceber');
+    var codigoPix = document.getElementById('codigoPix');
+    var milharesPix = document.getElementById('milharesPix');
+    var premioPix = document.getElementById('premioPix');
 
-            nomePix.textContent = nome;
-            totalPagarElement.textContent = totalPagar.toFixed(2);
-            totalReceberElement.textContent = totalReceber.toFixed(2);
+    nomePix.textContent = nome;
+    totalPagarElement.textContent = totalPagar.toFixed(2);
+    totalReceberElement.textContent = totalReceber.toFixed(2);
+    codigoPix.textContent = '71992290058';
 
-            codigoPix.textContent = '71992290058';
+    // Exibindo os milhares e o prêmio selecionado no modal
+    milharesPix.textContent = milhares.join(', ');
+    premioPix.textContent = document.getElementById('premioInput').options[document.getElementById('premioInput').selectedIndex].text;
 
-            modal.style.display = 'flex';
-        }
+    modal.style.display = 'flex';
+}
+
 
         function copyPix() {
             var codigoPix = document.getElementById('codigoPix');
@@ -287,7 +300,7 @@ const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
     
    const responsabilidade = "E de Responsabilidade do Apostador Conferir sua pule antes da Extracao";
    
-const valormilhar = "MILHAR 4.000.00";
+const valormilhar = "MILHAR 5.000.00";
 const valorcentena = "CENTENA 700.00";
 
             var mensagem = `${titulo}
