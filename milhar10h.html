@@ -134,13 +134,14 @@
 </head>
 <body>
     <div class="container">
-     <h1>RIFA MILHAR <h>10:00h</h><br><git> R$ 1.00 </git>GANHA<git> R$ 4.000.00</git></h1>
+     <h1>RIFA MILHAR <h>10:00h</h><br><git> R$ 1.00 </git>GANHA<git> R$ 5.000.00</git></h1>
 <h2> MULTIJOGO </h2><br>
         <input type="tel" id="valorInput" placeholder="Digite o valor" maxlength="2"><br>
         <input type="text" id="nomeInput" placeholder="Digite seu nome">
         <select id="premioInput">
             <option value="premio">1º Prêmio</option>
             <option value="1a5premio">1º ao 5º Prêmio</option>
+                <option value="1a10premio">1º ao 10º Prêmio</option>
         </select>
         <br>
       <input type="tel" id="milharInput1" placeholder="  milhar (4 números)" maxlength="4">
@@ -207,7 +208,7 @@
             var horaAtual = agora.getHours();
             var minutosAtual = agora.getMinutes();
 
-            if (horaAtual > 9 || (horaAtual === 9 && minutosAtual > 50)) {
+            if (horaAtual > 9 || (horaAtual === 9 && minutosAtual > 58)) {
                 document.getElementById('botaoCalcular').disabled = true;
                  alert('O tempo limite para JOGAR foi Excedido ATE 09:55.');
                 return;
@@ -218,9 +219,11 @@
                 if (!isNaN(valor)) {
                     var total;
                     if (premio === "1a5premio") {
-                        total = valor * 4000 / 5;
-                    } else {
-                        total = valor * 4000;
+                        total = valor * 5000 / 5;
+                    } else if  (premio === "1a10premio") {
+                        total = valor * 5000 / 10;
+                    }else {
+                        total = valor * 5000;
                     }
                     var totalPagar = valor * milhares.length;
                     showModal(nome, totalPagar, total);
