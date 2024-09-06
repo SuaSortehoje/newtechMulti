@@ -134,13 +134,14 @@
 </head>
 <body>
     <div class="container">
-     <h1>RIFA MILHAR <h>19:00h</h><br><git> R$ 1.00 </git>GANHA<git> R$ 4.000.00</git></h1>
+     <h1>RIFA MILHAR <h>19:00h</h><br><git> R$ 1.00 </git>GANHA<git> R$ 5.000.00</git></h1>
 <h2> MULTIJOGO </h2><br>
         <input type="tel" id="valorInput" placeholder="Digite o valor" maxlength="2"><br>
         <input type="text" id="nomeInput" placeholder="Digite seu nome">
         <select id="premioInput">
             <option value="premio">1º Prêmio</option>
             <option value="1a5premio">1º ao 5º Prêmio</option>
+               <option value="1a10premio">1º ao 10º Prêmio</option>
         </select>
         <br>
       <input type="tel" id="milharInput1" placeholder="  milhar (4 números)" maxlength="4">
@@ -157,7 +158,7 @@
         <input type="tel" id="milharInput12" placeholder="  milhar (4 números)" maxlength="4">
         <input type="tel" id="milharInput13" placeholder="  milhar (4 números)" maxlength="4">
         <input type="tel" id="milharInput14" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput15" placeholder="  milhar (4 números)" maxlength="4">
+        <input type="tel" id="milharInput16" placeholder="  milhar (4 números)" maxlength="4">
          <input type="tel" id="milharInput16" placeholder="  milhar (4 números)" maxlength="4">
         <input type="tel" id="milharInput17" placeholder="  milhar (4 números)" maxlength="4">
         <input type="tel" id="milharInput18" placeholder=" milhar (4 números)" maxlength="4">
@@ -165,22 +166,23 @@
         <input type="tel" id="milharInput20" placeholder="  milhar (4 números)" maxlength="4">
         <br>
         <button id="botaoAdicionar" onclick="adicionarMilhar()">Adicionar Milhar</button>
-       <button id="botaoCalcular" onclick="calcular()" disabled>Calcular</button>
+        <button id="botaoCalcular" onclick="calcular()" disabled>Calcular</button>
     </div>
 
     <div id="modal">
-        <div id="modal-content">
-            <h2>Detalhes do Jogo</h2>
-                <span class="close" onclick="closeModal()">&times;</span>
-
-            <p>Nome: <span id="nomePix"></span></p>
-            <p>Horário: <span id="horarioPix"></span></p>
-            <p>Milhares: <span id="milharesPix"></span></p>
-            <p>Total a Pagar: R$ <span id="totalPagar"></span></p>
-            <p>Total a Receber: R$ <span id="totalReceber"></span></p>
-            <p>Código PIX: <span id="codigoPix"></span></p>
-            <button onclick="copyPix()">Copiar PIX</button>
-            <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+      <div id="modal-content">
+    <h2>Detalhes do Jogo</h2>
+    <span class="close" onclick="closeModal()">&times;</span>
+    
+    <p>Nome: <span id="nomePix"></span></p>
+ 
+    <p>Milhares: <span id="milharesPix"></span></p>
+    <p>Prêmio Selecionado: <span id="premioPix"></span></p>
+    <p>Total a Pagar: R$ <span id="totalPagar"></span></p>
+    <p>Total a Receber: R$ <span id="totalReceber"></span></p>
+    <p>Código PIX: <span id="codigoPix"></span></p>
+    <button onclick="copyPix()">Copiar PIX</button>
+    <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
         </div>
     </div>
 
@@ -209,19 +211,21 @@
             var horaAtual = agora.getHours();
             var minutosAtual = agora.getMinutes();
 
-            if (horaAtual > 18 || (horaAtual === 9 && minutosAtual > 50)) {
+            if (horaAtual > 18 || (horaAtual === 18 && minutosAtual > 58)) {
                 document.getElementById('botaoCalcular').disabled = true;
-                 alert('O tempo limite para JOGAR foi excedido ATE 19:50.');
+                 alert('O tempo limite para JOGAR foi excedido ATE 14:50.');
                 return;
             }
 
-            if (nome && valor) {
+           if (nome && valor) {
                 valor = parseInt(valor);
                 if (!isNaN(valor)) {
                     var total;
-                    if (premio === "1a5premio") {
+                        if (premio === "1a5premio") {
                         total = valor * 5000 / 5;
-                    } else {
+                    } else if  (premio === "1a10premio") {
+                        total = valor * 5000 / 10;
+                    }else {
                         total = valor * 5000;
                     }
                     var totalPagar = valor * milhares.length;
@@ -235,20 +239,27 @@
         }
 
         function showModal(nome, totalPagar, totalReceber) {
-            var modal = document.getElementById('modal');
-            var nomePix = document.getElementById('nomePix');
-            var totalPagarElement = document.getElementById('totalPagar');
-            var totalReceberElement = document.getElementById('totalReceber');
-            var codigoPix = document.getElementById('codigoPix');
+    var modal = document.getElementById('modal');
+    var nomePix = document.getElementById('nomePix');
+    var totalPagarElement = document.getElementById('totalPagar');
+    var totalReceberElement = document.getElementById('totalReceber');
+    var codigoPix = document.getElementById('codigoPix');
+    var milharesPix = document.getElementById('milharesPix');
+    var premioPix = document.getElementById('premioPix');
 
-            nomePix.textContent = nome;
-            totalPagarElement.textContent = totalPagar.toFixed(2);
-            totalReceberElement.textContent = totalReceber.toFixed(2);
+    nomePix.textContent = nome;
+    totalPagarElement.textContent = totalPagar.toFixed(2);
+    totalReceberElement.textContent = totalReceber.toFixed(2);
+    codigoPix.textContent = '71992290058';
 
-            codigoPix.textContent = '71992290058';
+    // Exibindo os milhares e o prêmio selecionado no modal
+    milharesPix.textContent = milhares.join(', ');
+    premioPix.textContent = document.getElementById('premioInput').options[document.getElementById('premioInput').selectedIndex].text;
 
-            modal.style.display = 'flex';
-        }
+    modal.style.display = 'flex';
+}
+
+
 
         function copyPix() {
             var codigoPix = document.getElementById('codigoPix');
@@ -277,7 +288,7 @@
 const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
     
     
-    const horaLimite =  "HORA LIMITE 18:50";
+    const horaLimite =  "HORA LIMITE 09:55";
 
     // Gerar o código de 6 dígitos
     const codigo = Math.floor(100000 + Math.random() * 900000);
@@ -312,7 +323,7 @@ const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
             const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsApp, '_blank');
 }
-function closeModal() {
+  function closeModal() {
     var modal = document.getElementById('modal');
     modal.style.display = 'none';
 }
