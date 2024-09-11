@@ -36,8 +36,9 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         input[type="text"]{
-            width: 50%;
+            width: 40%;
             padding: 10px;
+            font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -46,6 +47,7 @@
         input[type="number"]{
             width: 30%;
             padding: 10px;
+            font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -54,6 +56,7 @@
         select {
             width: 50%;
             padding: 10px;
+            font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -141,7 +144,7 @@
         <select id="premioInput">
             <option value="premio">1º Prêmio</option>
             <option value="1a5premio">1º ao 5º Prêmio</option>
-               <option value="1a10premio">1º ao 10º Prêmio</option>
+                <option value="1a10premio">1º ao 10º Prêmio</option>
         </select>
         <br>
       <input type="tel" id="milharInput1" placeholder="  milhar (4 números)" maxlength="4">
@@ -158,7 +161,7 @@
         <input type="tel" id="milharInput12" placeholder="  milhar (4 números)" maxlength="4">
         <input type="tel" id="milharInput13" placeholder="  milhar (4 números)" maxlength="4">
         <input type="tel" id="milharInput14" placeholder="  milhar (4 números)" maxlength="4">
-        <input type="tel" id="milharInput16" placeholder="  milhar (4 números)" maxlength="4">
+        <input type="tel" id="milharInput15" placeholder="  milhar (4 números)" maxlength="4">
          <input type="tel" id="milharInput16" placeholder="  milhar (4 números)" maxlength="4">
         <input type="tel" id="milharInput17" placeholder="  milhar (4 números)" maxlength="4">
         <input type="tel" id="milharInput18" placeholder=" milhar (4 números)" maxlength="4">
@@ -169,7 +172,7 @@
         <button id="botaoCalcular" onclick="calcular()" disabled>Calcular</button>
     </div>
 
-    <div id="modal">
+     <div id="modal">
       <div id="modal-content">
     <h2>Detalhes do Jogo</h2>
     <span class="close" onclick="closeModal()">&times;</span>
@@ -185,7 +188,6 @@
     <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
         </div>
     </div>
-
     <script>
         var milhares = [];
 
@@ -211,13 +213,13 @@
             var horaAtual = agora.getHours();
             var minutosAtual = agora.getMinutes();
 
-            if (horaAtual > 19 || (horaAtual === 18 && minutosAtual > 58)) {
+            if (horaAtual > 18 || (horaAtual === 18 && minutosAtual > 50)) {
                 document.getElementById('botaoCalcular').disabled = true;
-                 alert('O tempo limite para JOGAR foi excedido ATE 18:55.');
+                 alert('O tempo limite para JOGAR foi excedido ATE 20:50.');
                 return;
             }
 
-           if (nome && valor) {
+        if (nome && valor) {
                 valor = parseInt(valor);
                 if (!isNaN(valor)) {
                     var total;
@@ -259,8 +261,6 @@
     modal.style.display = 'flex';
 }
 
-
-
         function copyPix() {
             var codigoPix = document.getElementById('codigoPix');
             var range = document.createRange();
@@ -288,7 +288,7 @@
 const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
     
     
-    const horaLimite =  "HORA LIMITE 09:55";
+    const horaLimite =  "HORA LIMITE 18:55";
 
     // Gerar o código de 6 dígitos
     const codigo = Math.floor(100000 + Math.random() * 900000);
@@ -306,8 +306,6 @@ const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
   *Data: ${new Date().toLocaleDateString()}*       *Hora: ${new Date().toLocaleTimeString()}*
              *${horaLimite }*
              
-            *Segue o código PIX*: ${chavePagamento}
-         
              *Valor a  Pagar* : R$ ${totalPagar}
             
             *Valor a Receber* : R$ ${totalReceber}
@@ -323,7 +321,7 @@ const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
             const linkWhatsApp = `https://wa.me/5571992290058?text=${encodeURIComponent(mensagem)}`;
     window.open(linkWhatsApp, '_blank');
 }
-  function closeModal() {
+function closeModal() {
     var modal = document.getElementById('modal');
     modal.style.display = 'none';
 }
