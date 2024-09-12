@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo de Milhares 10 horas</title>
+    <title>Milhar_10_horas</title>
     <style>
     
         body {
@@ -36,8 +36,9 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         input[type="text"]{
-            width: 50%;
+            width: 40%;
             padding: 10px;
+            font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -46,6 +47,7 @@
         input[type="number"]{
             width: 30%;
             padding: 10px;
+            font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -54,6 +56,7 @@
         select {
             width: 50%;
             padding: 10px;
+            font-weight:bold;
             margin-bottom: 6px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -117,7 +120,7 @@
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
-          .close {
+        .close {
             color: #aaa;
             float: right;
             font-size: 28px;
@@ -129,7 +132,7 @@
         .close:focus {
             color: black;
             text-decoration: none;
-        }
+        }  
     </style>
 </head>
 <body>
@@ -166,25 +169,25 @@
         <input type="tel" id="milharInput20" placeholder="  milhar (4 números)" maxlength="4">
         <br>
         <button id="botaoAdicionar" onclick="adicionarMilhar()">Adicionar Milhar</button>
-         <button id="botaoCalcular" onclick="calcular()" disabled>Calcular</button>
+        <button id="botaoCalcular" onclick="calcular()" disabled>Calcular</button>
     </div>
 
-    <div id="modal">
-        <div id="modal-content">
-            <h2>Detalhes do Jogo</h2>
-                <span class="close" onclick="closeModal()">&times;</span>
-
-            <p>Nome: <span id="nomePix"></span></p>
-            <p>Horário: <span id="horarioPix"></span></p>
-            <p>Milhares: <span id="milharesPix"></span></p>
-            <p>Total a Pagar: R$ <span id="totalPagar"></span></p>
-            <p>Total a Receber: R$ <span id="totalReceber"></span></p>
-            <p>Código PIX: <span id="codigoPix"></span></p>
-            <button onclick="copyPix()">Copiar PIX</button>
-            <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+     <div id="modal">
+      <div id="modal-content">
+    <h2>Detalhes do Jogo</h2>
+    <span class="close" onclick="closeModal()">&times;</span>
+    
+    <p>Nome: <span id="nomePix"></span></p>
+ 
+    <p>Milhares: <span id="milharesPix"></span></p>
+    <p>Prêmio Selecionado: <span id="premioPix"></span></p>
+    <p>Total a Pagar: R$ <span id="totalPagar"></span></p>
+    <p>Total a Receber: R$ <span id="totalReceber"></span></p>
+    <p>Código PIX: <span id="codigoPix"></span></p>
+    <button onclick="copyPix()">Copiar PIX</button>
+    <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
         </div>
     </div>
-
     <script>
         var milhares = [];
 
@@ -198,7 +201,9 @@
     if (milhares.length > 0) {
         document.getElementById('botaoCalcular').disabled = false;
     }
-    alert('Milhares adicionados com sucesso!');}
+    alert('Milhares adicionados com sucesso!');
+}
+
         function calcular() {
             var valor = document.getElementById('valorInput').value;
             var nome = document.getElementById('nomeInput').value;
@@ -210,15 +215,15 @@
 
             if (horaAtual > 9 || (horaAtual === 9 && minutosAtual > 58)) {
                 document.getElementById('botaoCalcular').disabled = true;
-                 alert('O tempo limite para JOGAR foi Excedido ATE 09:55.');
+                 alert('O Tempo Limite Para JOGAR Foi Excedido ATE 09:58.');
                 return;
             }
 
-            if (nome && valor) {
+        if (nome && valor) {
                 valor = parseInt(valor);
                 if (!isNaN(valor)) {
                     var total;
-                    if (premio === "1a5premio") {
+                        if (premio === "1a5premio") {
                         total = valor * 5000 / 5;
                     } else if  (premio === "1a10premio") {
                         total = valor * 5000 / 10;
@@ -236,20 +241,25 @@
         }
 
         function showModal(nome, totalPagar, totalReceber) {
-            var modal = document.getElementById('modal');
-            var nomePix = document.getElementById('nomePix');
-            var totalPagarElement = document.getElementById('totalPagar');
-            var totalReceberElement = document.getElementById('totalReceber');
-            var codigoPix = document.getElementById('codigoPix');
+    var modal = document.getElementById('modal');
+    var nomePix = document.getElementById('nomePix');
+    var totalPagarElement = document.getElementById('totalPagar');
+    var totalReceberElement = document.getElementById('totalReceber');
+    var codigoPix = document.getElementById('codigoPix');
+    var milharesPix = document.getElementById('milharesPix');
+    var premioPix = document.getElementById('premioPix');
 
-            nomePix.textContent = nome;
-            totalPagarElement.textContent = totalPagar.toFixed(2);
-            totalReceberElement.textContent = totalReceber.toFixed(2);
+    nomePix.textContent = nome;
+    totalPagarElement.textContent = totalPagar.toFixed(2);
+    totalReceberElement.textContent = totalReceber.toFixed(2);
+    codigoPix.textContent = '71992290058';
 
-            codigoPix.textContent = '71992290058';
+    // Exibindo os milhares e o prêmio selecionado no modal
+    milharesPix.textContent = milhares.join(', ');
+    premioPix.textContent = document.getElementById('premioInput').options[document.getElementById('premioInput').selectedIndex].text;
 
-            modal.style.display = 'flex';
-        }
+    modal.style.display = 'flex';
+}
 
         function copyPix() {
             var codigoPix = document.getElementById('codigoPix');
@@ -273,40 +283,38 @@
 
             var selecionado = document.getElementById('premioInput');
             var premioText = selecionado.options[selecionado.selectedIndex].text;
-        var multijogo = "MULTIJOGO MILHAR DAS 10:00 HORAS";
+        var multijogo = "    MULTIJOGO MILHAR DAS 10:00 HORAS";
 
 const chavePagamento = "https://multijogo.github.io/Link-de-pagamento-pix/";
     
-  const  titulo = "https://multijogo-38.webnode.page/milhar/";
     
-    const horaLimite =  "HORA LIMITE 09:55";
+    const horaLimite =  "HORA LIMITE 14:58";
 
     // Gerar o código de 6 dígitos
     const codigo = Math.floor(100000 + Math.random() * 900000);
     
+    const  titulo = "https://multijogo-38.webnode.page/milhar/";
     
    const responsabilidade = "E de Responsabilidade do Apostador Conferir sua pule antes da Extracao";
 
             var mensagem = `${titulo}
-            *${multijogo}*
+         *${multijogo}*
             
-       *Olá* , ${nome}!
+    *Olá* , ${nome} !
     
                DATA E HORA ATUAL
   *Data: ${new Date().toLocaleDateString()}*       *Hora: ${new Date().toLocaleTimeString()}*
-              *${horaLimite }*
+             *${horaLimite }*
              
-            *Segue o código PIX*: ${chavePagamento}
-         
-            *Valor a  Pagar* : R$ ${totalPagar}
+             *Valor a  Pagar* : R$ ${totalPagar}
             
             *Valor a Receber* : R$ ${totalReceber}
-        
+         
              *Prêmio* : ${premioText}
          
              *Milhares* : ${milharesString}
          
-      *Nº Controle da Aposta* : *${codigo}*
+      Nº Controle da Aposta : *${codigo}*
  
 *${responsabilidade}*`;
 
