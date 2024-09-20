@@ -139,7 +139,7 @@
 </head>
 <body>
     <div class="container">
-     <h1><h>RIFA</h> MILHAR e CENTENA <h>12:00h</h><br><git> R$ 1.00 </git>GANHA<git> R$ 5.000.00</git></h1>
+     <h1><h>RIFA</h> MILHAR e CENTENA <h>12:00h</h><br><git> R$ 1.00 </git>GANHA<git> R$ 2.850.00</git></h1>
 <h2> MULTIJOGO </h2><br>
         <input type="tel" id="valorInput" placeholder="Digite o valor" maxlength="4"><br>
         <input type="text" id="nomeInput" placeholder="Digite seu nome">
@@ -222,14 +222,16 @@
                 return;
             }
 
-            if (nome && valor) {
+          if (nome && valor) {
                 valor = parseInt(valor);
                 if (!isNaN(valor)) {
                     var total;
-                    if (premio === "1a5premio") {
-                        total = valor * 2350 / 5;
-                    } else {
-                        total = valor * 2350;
+                        if (premio === "1a5premio") {
+                        total = valor * 2850 / 5;
+                    } else if  (premio === "1a10premio") {
+                        total = valor * 2850 / 10;
+                    }else {
+                        total = valor * 2850;
                     }
                     var totalPagar = valor * milhares.length;
                     showModal(nome, totalPagar, total);
