@@ -254,7 +254,7 @@
         enviarWhatsappBtn.addEventListener('click', function () {
             const nome = document.getElementById('whatsappName').value;
             
-            const titulo = "MULTIJOGO RIFA DE DEZENA 10:00 horas";
+            const titulo = "MULTIJOGO RIFA DE DEZENA 10:00h";
             const linkGrupo = "";
             
             const totalReceber = document.getElementById('valorReceber').innerText;
@@ -276,7 +276,7 @@ const horaLimite =  "HORA LIMITE 09:55";
             *Olá, ${nome}!*
             
                 DATA E HORA ATUAL
-  *Data: ${new Date().toLocaleDateString()}           Hora: ${new Date().toLocaleTimeString()}*
+  *Data: ${new Date().toLocaleDateString()} / Hora: ${new Date().toLocaleTimeString()}*
                 *${horaLimite}*
                
             *Valor a pagar : R$* ${totalPagar}
