@@ -213,7 +213,7 @@
             var horaAtual = agora.getHours();
             var minutosAtual = agora.getMinutes();
 
-            if (horaAtual > 11 || (horaAtual === 14 && minutosAtual > 58)) {
+            if (horaAtual > 20 || (horaAtual === 20 && minutosAtual > 58)) {
                 document.getElementById('botaoCalcular').disabled = true;
                  alert('O tempo limite para JOGAR foi excedido ATE 20:58');
                 return;
